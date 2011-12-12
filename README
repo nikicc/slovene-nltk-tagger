@@ -4,6 +4,6 @@ The code for training the tagger was forked form:
 https://github.com/japerk/nltk-trainer
 and is in the folder trainer.
 
-The corpuses were taken from JOS project (http://nl.ijs.si/jos) and are stored in folders:
-	*jos1M
-	*jos100k
+The Slovene corpuses were taken from JOS project (http://nl.ijs.si/jos) and are stored in folders:
+	* jos1M
+	* jos100k 
