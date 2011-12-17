@@ -14,6 +14,9 @@ unicode_text = unicode_text.encode('utf-8')
 tokens = PunktWordTokenizer().tokenize(unicode_text)
 text = nltk.Text(tokens)
 result = tagger.tag(text)
-
 uniResult = [(unicode(pair[0],"utf-8"), pair[1]) for pair in result]
 
+def prettyPrint(uniResult):
+    print ", ".join("('%s', %s)" % a for a in uniResult)
+
+prettyPrint(uniResult)
