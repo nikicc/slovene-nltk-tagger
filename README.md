@@ -7,6 +7,8 @@ Unitl this taggers are build into NLTK, you can download the taggers from folder
 
 The example, which shows how to use Slovene taggers, is in file **example.py**
 
+Slovenian explanation of tags is in **jos1M/josMSD-canon-sl.tbl**
+
 ##Folders and files description
 
 * _**jos100k/**_ : Slovene corpus taken from [JOS project](http://nl.ijs.si/jos "Slovene corpus") with 100.000 tagged words.
