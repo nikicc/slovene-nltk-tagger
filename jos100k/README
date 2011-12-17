@@ -1,0 +1,17 @@
+                                               JOS
+             Morphosyntactically, syntatically and semantically tagged corpus jos100k
+                                               V2.0
+                                            2010-03-07
+                                      http://nl.ijs.si/jos/
+                                   
+This directory contains the jos100k corpus in source XML and derived formats.
+Included are also tabular files with MSD mappings.
+
+The files are the following, where * is "sl" or "en":
+
+jos100kv2_0.xml         Corpus in SSJ schema, http://nl.ijs.si/ssj/
+jos100kv2_0-*.cqp       Word-level annotated corpus in CQP tabular format
+jos100kv2_0-*.conll     Syntactically annotated corpus in CONLL-X tabular format
+jos100kv2_0_hdr-*.html  Corpus header in HTML
+josMSD-canon-*.tbl      MSD conversion table, CQP format, to fully expanded feature set
+josMSD.tbl              List of all MSDs

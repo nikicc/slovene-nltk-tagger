@@ -1,0 +1,17 @@
+                                                JOS
+                            Morphosyntactically tagged corpus jos1M
+                                               V1.0
+                                            2010-03-07
+                                      http://nl.ijs.si/jos/
+                                   
+This directory contains the jos1M corpus in source XML and derived
+teiHeader (metadata) in HTML, tabular files with MSD tables.
+
+The files are the following, where * is "sl" or "en":
+
+jos1Mv1_0.xml         Corpus driver in SSJ schema, http://nl.ijs.si/ssj/
+jos1M-nn.xml          Ten components of the corpus
+jos1M-nn-*.cqp        Components in tabular (CQP) format
+jos1Mv1_0_hdr-*.html  Corpus header in HTML
+josMSD-canon-*.tbl    MSD conversion table, CQP format, to fully expanded feature set
+josMSD.tbl            List of all MSDs
