@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*
-#MUltext-east
 
 import nltk
 import pickle
@@ -20,7 +19,7 @@ def sloTag(uText):
     return uniResult
 #################
 
-#load the tagger	
+#load the tagger
 tagger = pickle.load(open("slovene_taggers/TrigramTagger.pickle"))
 
 uText = u'Lep je dan, vse diši že po pomladi!'
