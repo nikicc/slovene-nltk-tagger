@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*
-
 import nltk
 import pickle
 from nltk import PunktWordTokenizer
@@ -8,6 +7,10 @@ from nltk import PunktWordTokenizer
 #prettPrint
 def prettyPrint(uniResult):
     print ", ".join("('%s', %s)" % a for a in uniResult)
+
+def prettyPrintByLine(uniResult):
+    for a in uniResult:
+        print ("('%s', %s)" % a)
 
 #slo tag - input UNICODE
 def sloTag(uText):
@@ -19,10 +22,14 @@ def sloTag(uText):
     return uniResult
 #################
 
-#load the tagger
-tagger = pickle.load(open("slovene_taggers/TrigramTagger.pickle"))
+#select the tagger
+#tagger = pickle.load(open("slovene_taggers/TrigramTagger.pickle"))
+#tagger = pickle.load(open("slovene_taggers/BrillTagger.pickle"))
+tagger = pickle.load(open("slovene_taggers/NaiveBayes.pickle"))
 
-uText = u'Lep je dan, vse diši že po pomladi!'
+#uText is input text
+#uText = u'Lep je dan, vse diši že po pomladi!'
 #uText = u'Tistega večera sem preveč popil, zgodilo se je mesec dni po tem, ko sem izvedel, da me žena vara.'
+uText = u'Živé naj vsi naródi, ki hrepené dočakat dan, da, koder sonce hodi, prepir iz svéta bo pregnan, ko rojak prost bo vsak, ne vrag, le sosed bo mejak!'
 result = sloTag(uText)
-prettyPrint(result)
+prettyPrintByLine(result)
