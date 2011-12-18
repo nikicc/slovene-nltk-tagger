@@ -36,8 +36,8 @@ def sloTag(uText):
 tagger = pickle.load(open("slovene_taggers/NaiveBayes.pickle"))
 
 #uText is input text
-#uText = u'Lep je dan, vse diši e po pomladi!'
-#uText = u'Tistega veèera sem preveè popil, zgodilo se je mesec dni po tem, ko sem izvedel, da me ena vara.'
-uText = u'ivé naj vsi naródi, ki hrepené doèakat dan, da, koder sonce hodi, prepir iz svéta bo pregnan, ko rojak prost bo vsak, ne vrag, le sosed bo mejak!'
+#uText = u'Lep je dan, vse diÅ¡i Å¾e po pomladi!'
+#uText = u'Tistega veÄ‡era sem preveÄ popil, zgodilo se je mesec dni po tem, ko sem izvedel, da me Å¾ena vara.'
+uText = u'Å½ivÃ© naj vsi narÃ³di, ki hrepenÃ© doÄakat dan, da, koder sonce hodi, prepir iz svÃ©ta bo pregnan, ko rojak prost bo vsak, ne vrag, le sosed bo mejak!'
 result = sloTag(uText)
 prettyPrintByLine(result)
