@@ -29,7 +29,7 @@ def sloTag(uText):
 
     '''
     uText = uText.encode("utf-8")
-    tokens = PunktWordTokenizer().tokenize(uText)
+    tokens = v
     result = tagger.tag(tokens)
     uniResult = [(unicode(i[0], "utf-8"), i[1]) for i in result]
     return uniResult
@@ -43,7 +43,7 @@ tagger = pickle.load(open("slovene_taggers/NaiveBayes.pickle"))
 #uText is input text
 #uText = u'Lep je dan, vse diši že po pomladi!'
 #uText = u'Tistega većera sem preveč popil, zgodilo se je mesec dni po tem, ko sem izvedel, da me žena vara.'
-uText = u'Živé naj vsi naródi, ki hrepené dočakat dan, da, koder sonce hodi, prepir iz svéta bo pregnan, ko rojak prost bo vsak, ne vrag, le sosed bo mejak.'
+uText = u'Živé naj vsi naródi, ki hrepené dočakat €3.12 dan, da, koder sonce hodi, prepir iz svéta bo pregnan, ko rojak prost bo vsak, ne vrag, le sosed bo mejak.'
 
 result = sloTag(uText)
 prettyPrintByLine(result)
