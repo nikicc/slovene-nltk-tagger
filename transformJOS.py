@@ -26,19 +26,16 @@ for i in dataName:
                 elif(i.nodeName == "term"):
                     parseTerm(i.childNodes)
                 elif(i.nodeName == "c"):
-<<<<<<< HEAD
-                    #if i.firstChild.data in [',','.']:
-=======
->>>>>>> origin/master
+
                     f.write(" ")
                     f.write((i.firstChild.data).encode('utf8'))
                     f.write("/")
                     f.write((i.firstChild.data).encode('utf8'))
-<<<<<<< HEAD
+
                     f.write(" ")
-=======
-		    f.write(" ")
->>>>>>> origin/master
+
+
+
                 elif (i.nodeName == "w"):
                     f.write((i.firstChild.data +"/"+ str(i.getAttribute("msd"))).encode('utf8'))
          f.write("\n")
@@ -54,18 +51,13 @@ def parseTerm(childrenT):
             if j.nodeName == "S":
                 f.write(" ")
             elif(j.nodeName == "c"):
-<<<<<<< HEAD
-                #if j.firstChild.data in [',','.']:
-=======
->>>>>>> origin/master
+
                 f.write(" ")
                 f.write((j.firstChild.data).encode('utf8'))
                 f.write("/")
                 f.write((j.firstChild.data).encode('utf8'))
-<<<<<<< HEAD
                 f.write(" ")
-=======
-		f.write(" ")
->>>>>>> origin/master
+
+
             elif (j.nodeName == "w"):
                 f.write((j.firstChild.data +"/"+ str(j.getAttribute("msd"))).encode('utf8'))

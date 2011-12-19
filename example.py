@@ -46,14 +46,11 @@ _t1 = time.time()
 
 #uText is input text
 #uText = u'Lep je dan, vse diši že po pomladi!'
-<<<<<<< HEAD
-#uText = u'Tistega većera sem preveč popil, zgodilo se je mesec dni po tem, ko sem izvedel, da me žena vara.'
-uText = u'Živé naj vsi naródi, ki hrepené dočakat €3.12 dan, da, koder sonce hodi, prepir iz svéta bo pregnan, ko rojak prost bo vsak, ne vrag, le sosed bo mejak.'
-=======
+
 #uText = u'Tistega (većera) sem-preveč "popil", zgodilo se je mesec dni po tem, ko sem izvedel, da me žena vara.'
 #uText = u'Živé naj vsi naródi, ki hrepené dočakat dan, da, koder sonce hodi, prepir iz svéta bo pregnan, ko rojak prost bo vsak, ne vrag, le sosed bo mejak.'
 uText = u'22-letni prof. Janez je preveč "popil" (za €3.12), ko ga žena vara. Zadel je 100.000.000€ žena vara! Nato je.... '
->>>>>>> origin/master
+
 
 _t2 = time.time()
 result = sloTag2(uText)
