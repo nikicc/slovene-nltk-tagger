@@ -2,7 +2,12 @@ About
 ======
 In this project we will implement NLTK Taggers for Slovene language.
 
+##Reqirements
+
+For this tagger to work, you need Python 2.7 and NLTK.
+
 ##Usage
+
 Unitl this taggers are build into NLTK, you can download the taggers from folder **slovene_taggers/** and use them in NLTK. 
 
 The example, which shows how to use Slovene taggers, is in file **example.py**
