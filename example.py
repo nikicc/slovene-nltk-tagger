@@ -16,7 +16,7 @@ def prettyPrintByLine(uniResult):
 def prettyPrintWithDescription(uniResult, description):
     for (x,y) in uniResult:
 	if y in description:
-            print "('",x,"', ",y,") - "+description[y][0]
+            print "('",x,"', ",y,") - "+unicode(description[y][0],"utf-8")
         else:
 	    print "('",x,"', ",y,") - ni razlage"
 
@@ -61,19 +61,21 @@ def getExplanationDict():
 ### USAGE EXAMPLE ###
 _t0 = time.time()
 #select the tagger
-#tagger = pickle.load(open("slovene_taggers/TrigramTagger.pickle"))
+tagger = pickle.load(open("slovene_taggers/TrigramTagger.pickle"))
 #tagger = pickle.load(open("slovene_taggers/BrillTagger.pickle"))
-tagger = pickle.load(open("slovene_taggers/NaiveBayes.pickle"))
+#tagger = pickle.load(open("slovene_taggers/NaiveBayes.pickle"))
 sent_tokenizer=nltk.data.load('tokenizers/punkt/slovene.pickle')
 dict_sl, dict_en = getExplanationDict()
 _t1 = time.time()
 
 
 #uText is input text
-#uText = u'Lep je dan, vse diöi ûe po pomladi!'
-#uText = u'Tistega (veÊera) sem-preveË "popil", zgodilo se je mesec dni po tem, ko sem izvedel, da me ûena vara.'
-uText = u'éivÈ naj vsi narÛdi, ki hrepenÈ doËakat dan, da, koder sonce hodi, prepir iz svÈta bo pregnan, ko rojak prost bo vsak, ne vrag, le sosed bo mejak.'
-#uText = u'22-letni prof. Janez je preveË "popil" (za Ä3.12), ko ga ûena vara. Zadel je 100.000.000Ä ûena vara! Nato je.... '
+#uText = u'Lep je dan, vse di≈°i ≈æe po pomladi!'
+#uText = u'Tistega (veƒáera) sem-preveƒç "popil", zgodilo se je mesec dni po tem, ko sem izvedel, da me ≈æena vara.'
+#uText = u'≈Ωiv√© naj vsi nar√≥di, ki hrepen√© doƒçakat dan, da, koder sonce hodi, prepir iz sv√©ta bo pregnan, ko rojak prost bo vsak, ne vrag, le sosed bo mejak.'
+uText = u'22-letni prof. Janez je preveƒç "popil" (za ‚Ç¨3.12), ko ga ≈æena vara. Zadel je 100.000.000‚Ç¨ ≈æena vara! Nato je... '
+
+
 
 _t2 = time.time()
 result = sloTag2(uText)
