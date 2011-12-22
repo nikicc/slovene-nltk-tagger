@@ -17,24 +17,24 @@ for i in dataName:
     doc = xml.dom.minidom.parse(IN)
     print "Finished parsing: "+IN
 
-    #for all sentences
+    # for all sentences and characters
+	# write to file
     for sentances in doc.getElementsByTagName("s"):
          for i in sentances.childNodes:
             if i.nodeName != "#text":
+								
                 if i.nodeName == "S":
                     f.write(" ")
+					
                 elif(i.nodeName == "term"):
                     parseTerm(i.childNodes)
+					
                 elif(i.nodeName == "c"):
-
                     f.write(" ")
                     f.write((i.firstChild.data).encode('utf8'))
                     f.write("/")
                     f.write((i.firstChild.data).encode('utf8'))
-
                     f.write(" ")
-
-
 
                 elif (i.nodeName == "w"):
                     f.write((i.firstChild.data +"/"+ str(i.getAttribute("msd"))).encode('utf8'))
@@ -44,20 +44,20 @@ f.close()
 print "The transformed corpus is in file: "+out
 
 
-# term parsing
+# term parsing in the sam way as sentence
+# and characters
 def parseTerm(childrenT):
      for j in childrenT:
         if j.nodeName != "#text":
             if j.nodeName == "S":
                 f.write(" ")
+				
             elif(j.nodeName == "c"):
-
                 f.write(" ")
                 f.write((j.firstChild.data).encode('utf8'))
                 f.write("/")
                 f.write((j.firstChild.data).encode('utf8'))
                 f.write(" ")
-
 
             elif (j.nodeName == "w"):
                 f.write((j.firstChild.data +"/"+ str(j.getAttribute("msd"))).encode('utf8'))
