@@ -71,8 +71,9 @@ _t1 = time.time()
 
 
 #uText is input text
-uText = u'Lep je dan, vse diši že po pomladi!'
-uText = u'Živé naj vsi naródi, ki hrepené dočakat dan, da, koder sonce hodi, prepir iz svéta bo pregnan, ko rojak prost bo vsak, ne vrag, le sosed bo mejak.'
+#uText = u'Lep je dan, vse diši že po pomladi!'
+#uText = u'Živé naj vsi naródi, ki hrepené dočakat dan, da, koder sonce hodi, prepir iz svéta bo pregnan, ko rojak prost bo vsak, ne vrag, le sosed bo mejak.'
+uText = u'Potem se je obrnil proti nam in skozi solze izoblikoval najlepši nasmeh, kar sem jih videl v življenju.'
 
 
 _t2 = time.time()
