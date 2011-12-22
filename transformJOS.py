@@ -19,6 +19,7 @@ for i in dataName:
 
     # for all sentences and characters
 	# write to file
+
     for sentances in doc.getElementsByTagName("s"):
          for i in sentances.childNodes:
             if i.nodeName != "#text":

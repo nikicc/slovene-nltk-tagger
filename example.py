@@ -7,18 +7,18 @@ from nltk import PunktWordTokenizer
 ### FUNCTIONS ###
 #prettPrint
 def prettyPrint(uniResult):
-    print ", ".join("('%s', %s)" % a for a in uniResult)
+    print ", ".join("(%s | %s)" % a for a in uniResult)
 
 def prettyPrintByLine(uniResult):
     for a in uniResult:
-        print "('%s', %s)" % a
+        print "(%s | %s)" % a
 
 def prettyPrintWithDescription(uniResult, description):
     for (x,y) in uniResult:
 	if y in description:
-            print "('",x,"', ",y,") - "+unicode(description[y][0],"utf-8")
+	    print "(",x," | ",y,") - "+unicode(description[y][0],"utf-8")
         else:
-	    print "('",x,"', ",y,") - ni razlage"
+	    print "(",x," | ",y,") - ni razlage"
 
 #slo tag - input UNICODE
 def sloTag(uText):
@@ -59,30 +59,30 @@ def getExplanationDict():
 
 
 ### USAGE EXAMPLE ###
+
 _t0 = time.time()
 #select the tagger
-tagger = pickle.load(open("slovene_taggers/TrigramTagger.pickle"))
-#tagger = pickle.load(open("slovene_taggers/BrillTagger.pickle"))
-#tagger = pickle.load(open("slovene_taggers/NaiveBayes.pickle"))
-sent_tokenizer=nltk.data.load('tokenizers/punkt/slovene.pickle')
+tagger = pickle.load( open("slovene_taggers/TrigramTagger.pickle") )
+#tagger = pickle.load( open("slovene_taggers/BrillTagger.pickle") )
+#tagger = pickle.load( open("slovene_taggers/NaiveBayes.pickle") )
+sent_tokenizer = nltk.data.load('tokenizers/punkt/slovene.pickle')
 dict_sl, dict_en = getExplanationDict()
 _t1 = time.time()
 
 
 #uText is input text
 #uText = u'Lep je dan, vse diši že po pomladi!'
-#uText = u'Tistega (većera) sem-preveč "popil", zgodilo se je mesec dni po tem, ko sem izvedel, da me žena vara.'
 #uText = u'Živé naj vsi naródi, ki hrepené dočakat dan, da, koder sonce hodi, prepir iz svéta bo pregnan, ko rojak prost bo vsak, ne vrag, le sosed bo mejak.'
-uText = u'22-letni prof. Janez je preveč "popil" (za €3.12), ko ga žena vara. Zadel je 100.000.000€ žena vara! Nato je... '
-
+uText = u'Potem se je obrnil proti nam in skozi solze izoblikoval najlepši nasmeh, kar sem jih videl v življenju.'
 
 
 _t2 = time.time()
 result = sloTag2(uText)
 _t3 = time.time()
+
 prettyPrintWithDescription(result, dict_sl)
 
-
-print "Loading time ",time.strftime("%H:%M:%S", time.gmtime(_t1-_t0)), "(",_t1-_t0,"s)"
-print "Tagging time ",time.strftime("%H:%M:%S", time.gmtime(_t3-_t2)), "(",_t3-_t2,"s)"
-print "Total time   ",time.strftime("%H:%M:%S", time.gmtime(_t3-_t0)), "(",_t3-_t0,"s)"
+print ""
+print "Loading time ",time.strftime("%H:%M:%S", time.gmtime(_t1-_t0)), "(",_t1-_t0,"s )"
+print "Tagging time ",time.strftime("%H:%M:%S", time.gmtime(_t3-_t2)), "(",_t3-_t2,"s )"
+print "Total time   ",time.strftime("%H:%M:%S", time.gmtime(_t3-_t0)), "(",_t3-_t0,"s )"
