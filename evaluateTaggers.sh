@@ -9,7 +9,7 @@
 # this is only used for evaluation, for real generation look above
 #
 # for writing to console and file use:
-# ./evaluateTaggers.sh 2>&1 | tee evaluation.txt
+# ./evaluateTaggers.sh 2>&1 | tee evaluation/evaluation.txt
 #
 
 mkdir tmp

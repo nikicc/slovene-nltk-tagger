@@ -16,6 +16,8 @@ Slovenian explanation of tags is in **jos1M/josMSD-canon-sl.tbl**
 
 ##Folders and files description
 
+* _**evaluation/**_ : outputs from evaluation script
+
 * _**jos100k/**_ : Slovene corpus taken from [JOS project](http://nl.ijs.si/jos "Slovene corpus") with 100.000 tagged words.
 
 * _**jos1M/**_ : Slovene corpus taken from [JOS project](http://nl.ijs.si/jos "Slovene corpus") with million tagged words.
