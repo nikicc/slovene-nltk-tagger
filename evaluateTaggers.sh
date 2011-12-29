@@ -9,24 +9,34 @@
 # this is only used for evaluation, for real generation look above
 #
 # for writing to console and file use:
-# ./evaluateTaggers.sh 2>&1 | tee evaluation.log
+# ./evaluateTaggers.sh 2>&1 | tee evaluation.txt
 #
 
 mkdir tmp
 
 for frac in 0.99 0.98 0.97 0.96 0.95
 do
-   echo "******************************************************************************************"
-   echo "*****************************    Fraction is $frac    *************************************"                              
-   echo "******************************************************************************************"
+   echo "------------------------------------------------------------------------------------------------------------------"
+   echo "-----------------------------    Fraction is $frac    -------------------------------------------------------------"                              
+   echo "------------------------------------------------------------------------------------------------------------------"
+   echo -n "--- TIME: "
    date
+   echo "------------------------------------------------------------------------------------------------------------------"
    # TrigramTagger without evaluation
-   python trainer/train_tagger.py --filename tmp/TrigramTagger.pickle --reader nltk.corpus.reader.tagged.TaggedCorpusReader --fileids '.+\.pos' --fraction    $frac --default="-Neznan-" ./pos
+   python trainer/train_tagger.py --filename tmp/TrigramTagger.pickle --reader nltk.corpus.reader.tagged.TaggedCorpusReader --fileids '.+\.pos' --fraction  $frac --default="-Neznan-" ./pos
+   echo "------------------------------------------------------------------------------------------------------------------"
+   echo -n "--- TIME: "
    date
+   echo "------------------------------------------------------------------------------------------------------------------"
    # BrillTagger without evaluation
-   python trainer/train_tagger.py --filename tmp/BrillTagger.pickle --reader nltk.corpus.reader.tagged.TaggedCorpusReader --fileids '.+\.pos' --fraction $frac --default="-Neznan-" --brill ./pos
+   python trainer/train_tagger.py --filename tmp/BrillTagger.pickle --reader nltk.corpus.reader.tagged.TaggedCorpusReader --fileids '.+\.pos' --fraction $frac  --default="-Neznan-" --brill ./pos
+   echo "------------------------------------------------------------------------------------------------------------------"
+   echo -n "--- TIME: "
    date
+   echo "------------------------------------------------------------------------------------------------------------------"
    # ClassifierBasedPOSTagger - NaiveBayes without evaluation
-   python trainer/train_tagger.py --filename tmp/NaiveBayes.pickle --reader nltk.corpus.reader.tagged.TaggedCorpusReader --fileids '.+\.pos' --fraction $frac --default="-Neznan-" --sequential='' --classifier="NaiveBayes" ./pos
+   python trainer/train_tagger.py --filename tmp/NaiveBayes.pickle --reader nltk.corpus.reader.tagged.TaggedCorpusReader --fileids '.+\.pos' --fraction $frac  --default="-Neznan-" --sequential='' --classifier="NaiveBayes" ./pos
+   echo "------------------------------------------------------------------------------------------------------------------"
+   echo -n "--- TIME: "
    date
 done

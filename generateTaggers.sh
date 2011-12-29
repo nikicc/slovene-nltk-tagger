@@ -1,7 +1,7 @@
 #
 # GENERATION
 # for writing to console and file use:
-# ./generateTaggers.sh 2>&1 | tee generation.log
+# ./generateTaggers.sh 2>&1 | tee generation.txt
 #
 
 mkdir slovene_taggers
