@@ -23,14 +23,14 @@ Nejc Banič \\
 \thispagestyle{empty}
 %\pagebreak
 
-\section*{Abstract}
-\textit{TODO - NIKICC}
-\section{Introduction}
-\textit{TODO - NIKICC}
+\section*{Abstract - NIKICC}
+This paper describes the process of building Slovene tagger for use in NLTK.  
+\section{Introduction - NIKICC}
+Tagger processes a sequence of words and attaches a part of speech tag to each word. We implemented tagger for Slovene language in NLTK. NLTK stands for Natural Language Toolkit and is a library for use in Python (currently for version below 3, we used 2.7). NLTK already has some taggers for English and some other languages. Our goal was to implement NLTK tagger for Slovene language. The resault of this project depends on two other larger projects. First is \textit{JOS}\cite{JOS}(in Slovene it stands for: "Jezikoslovno Označevanje Slovenskega jezika"), from which we used the corpuses (large and structured set of texts). Second, \textit{nltk-trainer}\cite{nltk-trainer}, is an open-source project hosting on Github, which was used for actuall training of the tagger on Slovene sentences. Our work based mainly on putting all this pieces together into a working Slovene NLTK tagger.
 \section{JOS Corpus}
 \textit{TODO - BANIČ}
-\section{NLTK Trainer}
-\textit{TODO - NIKICC}
+\section{Nltk-trainer - NIKICC}
+Nltk-trainer\cite{nltk-trainer} is project, whose author is Jacob Perkins, from which we took the code for building the tagger. We almost exclusively used the script \textit{train\_tagger.py}, which has the ability to generate NLTK taggers. Its mandatory argument is corpus in .pos format. Other optional arguments can choose wheather to generate a Sequential Tagger, a Brill Tagger or a Classifier Based Tagger. It also has the possibility to set default tag (the tag for words, for which the tagger doesn't know how to tag) and wheather to evaluate the tagger or not. For evaluation of the tagger (section \ref{Evaluation}) this argument was used. 
 \section{Taggers description}
 \subsection{Trigram tagger}
 \textit{TODO - NIKICC}
@@ -47,6 +47,8 @@ Nejc Banič \\
 \textit{TODO - BANIČ}
 \subsection{Encoding problems}
 \textit{TODO - BANIČ}
+\section{Evaluation}\label{Evaluation}
+\textit{TODO - NIKICC, BANIČ}
 \section{Conclusion}
 \textit{TODO - BANIČ}
 
@@ -56,6 +58,7 @@ Nejc Banič \\
 %\thispagestyle{empty}
 \begin{thebibliography}{99}
 \bibitem{JOS} \url{http://nl.ijs.si/jos/}
+\bibitem{nltk-trainer} \url{https://github.com/japerk/nltk-trainer}
 
 \end{thebibliography}
 \end{document}
