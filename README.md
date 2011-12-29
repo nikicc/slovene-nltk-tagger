@@ -30,4 +30,6 @@ Slovenian explanation of tags is in **jos1M/josMSD-canon-sl.tbl**
 
 * _**generateTaggers.sh**_ : commands for generating the taggers. The generation uses data _pos/jos1M.pos_ and program _trainer/train_tagger.py_. 
 
+* _**evaluateTaggers.sh**_ : commands for accuracy evaluation of the taggers. 
+
 * _**transformJOS.py**_ : the code for transforming all _.xml_ corpuses from _jos1M/_ into _pos/jos1M.pos_.
