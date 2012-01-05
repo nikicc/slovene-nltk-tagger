@@ -1,0 +1,221 @@
+mkdir: imenika »tmp« ni mogoče ustvariti: File exists
+------------------------------------------------------------------------------------------------------------------
+-----------------------------    Fraction is 0.99    -------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------
+--- TIME: čet dec 29 14:39:39 CET 2011
+------------------------------------------------------------------------------------------------------------------
+loading ./pos
+60291 tagged sents, training on 59689
+training AffixTagger with affix -3 and backoff <DefaultTagger: tag=-Neznan->
+training <class 'nltk.tag.sequential.UnigramTagger'> tagger with backoff <AffixTagger: size=10846>
+training <class 'nltk.tag.sequential.BigramTagger'> tagger with backoff <UnigramTagger: size=85287>
+training <class 'nltk.tag.sequential.TrigramTagger'> tagger with backoff <BigramTagger: size=69315>
+evaluating TrigramTagger
+accuracy: 0.837875
+dumping TrigramTagger to tmp/TrigramTagger.pickle
+------------------------------------------------------------------------------------------------------------------
+--- TIME: čet dec 29 14:40:42 CET 2011
+------------------------------------------------------------------------------------------------------------------
+loading ./pos
+60291 tagged sents, training on 59689
+training AffixTagger with affix -3 and backoff <DefaultTagger: tag=-Neznan->
+training <class 'nltk.tag.sequential.UnigramTagger'> tagger with backoff <AffixTagger: size=10846>
+training <class 'nltk.tag.sequential.BigramTagger'> tagger with backoff <UnigramTagger: size=85287>
+training <class 'nltk.tag.sequential.TrigramTagger'> tagger with backoff <BigramTagger: size=69315>
+Training Brill tagger on 59689 sentences...
+Finding initial useful rules...
+    Found 51893 useful rules.
+Selecting rules...
+evaluating BrillTagger
+accuracy: 0.857844
+dumping BrillTagger to tmp/BrillTagger.pickle
+------------------------------------------------------------------------------------------------------------------
+--- TIME: čet dec 29 14:42:22 CET 2011
+------------------------------------------------------------------------------------------------------------------
+loading ./pos
+60291 tagged sents, training on 59689
+training ['NaiveBayes'] ClassifierBasedPOSTagger
+Constructing training corpus for classifier.
+Training classifier (1173562 instances)
+training NaiveBayes classifier
+evaluating ClassifierBasedPOSTagger
+accuracy: 0.856699
+dumping ClassifierBasedPOSTagger to tmp/NaiveBayes.pickle
+------------------------------------------------------------------------------------------------------------------
+--- TIME: čet dec 29 14:59:05 CET 2011
+------------------------------------------------------------------------------------------------------------------
+-----------------------------    Fraction is 0.98    -------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------
+--- TIME: čet dec 29 14:59:05 CET 2011
+------------------------------------------------------------------------------------------------------------------
+loading ./pos
+60291 tagged sents, training on 59086
+training AffixTagger with affix -3 and backoff <DefaultTagger: tag=-Neznan->
+training <class 'nltk.tag.sequential.UnigramTagger'> tagger with backoff <AffixTagger: size=10813>
+training <class 'nltk.tag.sequential.BigramTagger'> tagger with backoff <UnigramTagger: size=84777>
+training <class 'nltk.tag.sequential.TrigramTagger'> tagger with backoff <BigramTagger: size=68657>
+evaluating TrigramTagger
+accuracy: 0.841683
+dumping TrigramTagger to tmp/TrigramTagger.pickle
+------------------------------------------------------------------------------------------------------------------
+--- TIME: čet dec 29 15:00:09 CET 2011
+------------------------------------------------------------------------------------------------------------------
+loading ./pos
+60291 tagged sents, training on 59086
+training AffixTagger with affix -3 and backoff <DefaultTagger: tag=-Neznan->
+training <class 'nltk.tag.sequential.UnigramTagger'> tagger with backoff <AffixTagger: size=10813>
+training <class 'nltk.tag.sequential.BigramTagger'> tagger with backoff <UnigramTagger: size=84777>
+training <class 'nltk.tag.sequential.TrigramTagger'> tagger with backoff <BigramTagger: size=68657>
+Training Brill tagger on 59086 sentences...
+Finding initial useful rules...
+    Found 51476 useful rules.
+Selecting rules...
+evaluating BrillTagger
+accuracy: 0.862869
+dumping BrillTagger to tmp/BrillTagger.pickle
+------------------------------------------------------------------------------------------------------------------
+--- TIME: čet dec 29 15:01:49 CET 2011
+------------------------------------------------------------------------------------------------------------------
+loading ./pos
+60291 tagged sents, training on 59086
+training ['NaiveBayes'] ClassifierBasedPOSTagger
+Constructing training corpus for classifier.
+Training classifier (1161330 instances)
+training NaiveBayes classifier
+evaluating ClassifierBasedPOSTagger
+accuracy: 0.858779
+dumping ClassifierBasedPOSTagger to tmp/NaiveBayes.pickle
+------------------------------------------------------------------------------------------------------------------
+--- TIME: čet dec 29 15:34:04 CET 2011
+------------------------------------------------------------------------------------------------------------------
+-----------------------------    Fraction is 0.97    -------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------
+--- TIME: čet dec 29 15:34:04 CET 2011
+------------------------------------------------------------------------------------------------------------------
+loading ./pos
+60291 tagged sents, training on 58483
+training AffixTagger with affix -3 and backoff <DefaultTagger: tag=-Neznan->
+training <class 'nltk.tag.sequential.UnigramTagger'> tagger with backoff <AffixTagger: size=10771>
+training <class 'nltk.tag.sequential.BigramTagger'> tagger with backoff <UnigramTagger: size=84256>
+training <class 'nltk.tag.sequential.TrigramTagger'> tagger with backoff <BigramTagger: size=68108>
+evaluating TrigramTagger
+accuracy: 0.840060
+dumping TrigramTagger to tmp/TrigramTagger.pickle
+------------------------------------------------------------------------------------------------------------------
+--- TIME: čet dec 29 15:35:06 CET 2011
+------------------------------------------------------------------------------------------------------------------
+loading ./pos
+60291 tagged sents, training on 58483
+training AffixTagger with affix -3 and backoff <DefaultTagger: tag=-Neznan->
+training <class 'nltk.tag.sequential.UnigramTagger'> tagger with backoff <AffixTagger: size=10771>
+training <class 'nltk.tag.sequential.BigramTagger'> tagger with backoff <UnigramTagger: size=84256>
+training <class 'nltk.tag.sequential.TrigramTagger'> tagger with backoff <BigramTagger: size=68108>
+Training Brill tagger on 58483 sentences...
+Finding initial useful rules...
+    Found 51106 useful rules.
+Selecting rules...
+evaluating BrillTagger
+accuracy: 0.861213
+dumping BrillTagger to tmp/BrillTagger.pickle
+------------------------------------------------------------------------------------------------------------------
+--- TIME: čet dec 29 15:36:45 CET 2011
+------------------------------------------------------------------------------------------------------------------
+loading ./pos
+60291 tagged sents, training on 58483
+training ['NaiveBayes'] ClassifierBasedPOSTagger
+Constructing training corpus for classifier.
+Training classifier (1150893 instances)
+training NaiveBayes classifier
+evaluating ClassifierBasedPOSTagger
+accuracy: 0.856799
+dumping ClassifierBasedPOSTagger to tmp/NaiveBayes.pickle
+------------------------------------------------------------------------------------------------------------------
+--- TIME: čet dec 29 16:21:56 CET 2011
+------------------------------------------------------------------------------------------------------------------
+-----------------------------    Fraction is 0.96    -------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------
+--- TIME: čet dec 29 16:21:56 CET 2011
+------------------------------------------------------------------------------------------------------------------
+loading ./pos
+60291 tagged sents, training on 57880
+training AffixTagger with affix -3 and backoff <DefaultTagger: tag=-Neznan->
+training <class 'nltk.tag.sequential.UnigramTagger'> tagger with backoff <AffixTagger: size=10744>
+training <class 'nltk.tag.sequential.BigramTagger'> tagger with backoff <UnigramTagger: size=83660>
+training <class 'nltk.tag.sequential.TrigramTagger'> tagger with backoff <BigramTagger: size=67509>
+evaluating TrigramTagger
+accuracy: 0.838798
+dumping TrigramTagger to tmp/TrigramTagger.pickle
+------------------------------------------------------------------------------------------------------------------
+--- TIME: čet dec 29 16:22:59 CET 2011
+------------------------------------------------------------------------------------------------------------------
+loading ./pos
+60291 tagged sents, training on 57880
+training AffixTagger with affix -3 and backoff <DefaultTagger: tag=-Neznan->
+training <class 'nltk.tag.sequential.UnigramTagger'> tagger with backoff <AffixTagger: size=10744>
+training <class 'nltk.tag.sequential.BigramTagger'> tagger with backoff <UnigramTagger: size=83660>
+training <class 'nltk.tag.sequential.TrigramTagger'> tagger with backoff <BigramTagger: size=67509>
+Training Brill tagger on 57880 sentences...
+Finding initial useful rules...
+    Found 50623 useful rules.
+Selecting rules...
+evaluating BrillTagger
+accuracy: 0.860899
+dumping BrillTagger to tmp/BrillTagger.pickle
+------------------------------------------------------------------------------------------------------------------
+--- TIME: čet dec 29 16:24:38 CET 2011
+------------------------------------------------------------------------------------------------------------------
+loading ./pos
+60291 tagged sents, training on 57880
+training ['NaiveBayes'] ClassifierBasedPOSTagger
+Constructing training corpus for classifier.
+Training classifier (1138815 instances)
+training NaiveBayes classifier
+evaluating ClassifierBasedPOSTagger
+accuracy: 0.853809
+dumping ClassifierBasedPOSTagger to tmp/NaiveBayes.pickle
+------------------------------------------------------------------------------------------------------------------
+--- TIME: čet dec 29 17:26:15 CET 2011
+------------------------------------------------------------------------------------------------------------------
+-----------------------------    Fraction is 0.95    -------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------
+--- TIME: čet dec 29 17:26:15 CET 2011
+------------------------------------------------------------------------------------------------------------------
+loading ./pos
+60291 tagged sents, training on 57277
+training AffixTagger with affix -3 and backoff <DefaultTagger: tag=-Neznan->
+training <class 'nltk.tag.sequential.UnigramTagger'> tagger with backoff <AffixTagger: size=10638>
+training <class 'nltk.tag.sequential.BigramTagger'> tagger with backoff <UnigramTagger: size=82865>
+training <class 'nltk.tag.sequential.TrigramTagger'> tagger with backoff <BigramTagger: size=66750>
+evaluating TrigramTagger
+accuracy: 0.828913
+dumping TrigramTagger to tmp/TrigramTagger.pickle
+------------------------------------------------------------------------------------------------------------------
+--- TIME: čet dec 29 17:27:23 CET 2011
+------------------------------------------------------------------------------------------------------------------
+loading ./pos
+60291 tagged sents, training on 57277
+training AffixTagger with affix -3 and backoff <DefaultTagger: tag=-Neznan->
+training <class 'nltk.tag.sequential.UnigramTagger'> tagger with backoff <AffixTagger: size=10638>
+training <class 'nltk.tag.sequential.BigramTagger'> tagger with backoff <UnigramTagger: size=82865>
+training <class 'nltk.tag.sequential.TrigramTagger'> tagger with backoff <BigramTagger: size=66750>
+Training Brill tagger on 57277 sentences...
+Finding initial useful rules...
+    Found 49967 useful rules.
+Selecting rules...
+evaluating BrillTagger
+accuracy: 0.851041
+dumping BrillTagger to tmp/BrillTagger.pickle
+------------------------------------------------------------------------------------------------------------------
+--- TIME: čet dec 29 17:29:10 CET 2011
+------------------------------------------------------------------------------------------------------------------
+loading ./pos
+60291 tagged sents, training on 57277
+training ['NaiveBayes'] ClassifierBasedPOSTagger
+Constructing training corpus for classifier.
+Training classifier (1125496 instances)
+training NaiveBayes classifier
+evaluating ClassifierBasedPOSTagger
+accuracy: 0.847508
+dumping ClassifierBasedPOSTagger to tmp/NaiveBayes.pickle
+------------------------------------------------------------------------------------------------------------------
+--- TIME: čet dec 29 18:47:20 CET 2011
