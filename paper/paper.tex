@@ -1,45 +1,53 @@
-\documentclass[11pt,a4paper,english,twocolumn]{article}
-%\usepackage[T1]{fontenc}
+\documentclass[11pt, conference, compsocconf]{IEEEtran}
+%\hyphenation{op-tical net-works semi-conduc-tor}
 \usepackage[utf8]{inputenc}
-\usepackage{babel}
-\usepackage{blindtext}
+\usepackage[pdftex]{graphicx} % za slike
 \usepackage{hyperref}
-\usepackage{graphicx}
-%\usepackage{wrapfig}
+\usepackage{multirow} 
 
 \title{\textbf{Slovene NLTK Tagger}}
 \author{
-Niko Colnerič \\
-\footnotesize Faculty of Computer and \\
-\footnotesize Information Science \\
-\footnotesize University of Ljubljana \\
-\and
-Nejc Banič \\
-\footnotesize Faculty of Computer and \\
-\footnotesize Information Science \\
-\footnotesize University of Ljubljana \\
+	Niko Colnerič \\
+	\footnotesize Faculty of Computer and \\
+	\footnotesize Information Science \\
+	\footnotesize University of Ljubljana \\
+	\footnotesize \texttt{niko.colneric@gmail.com} \\
+	\and
+	Nejc Banič \\
+	\footnotesize Faculty of Computer and \\
+	\footnotesize Information Science \\
+	\footnotesize University of Ljubljana \\
+	\footnotesize \texttt{MAIL@} \\
 }
 
 \begin{document}
 \maketitle
 \thispagestyle{empty}
-%\pagebreak
 
 \section*{Abstract - NIKICC}
-This paper describes the process of building Slovene tagger for use in NLTK.  
+This paper describes the process of building Slovene tagger for use in NLTK.
+
+\section*{Keywords}
+
 \section{Introduction - NIKICC}
 Tagger processes a sequence of words and attaches a part of speech tag to each word. We implemented tagger for Slovene language in NLTK. NLTK stands for Natural Language Toolkit and is a library for use in Python (currently for version below 3, we used 2.7). NLTK already has some taggers for English and some other languages. Our goal was to implement NLTK tagger for Slovene language. The result of this project depends on two other larger projects. First is \textit{JOS}\cite{JOS}(in Slovene it stands for: "Jezikoslovno Označevanje Slovenskega jezika"), from which we used the corpuses (large and structured set of texts). Second, \textit{nltk-trainer}\cite{nltk-trainer}, is an open-source project hosting on Github, which was used for actual training of the tagger on Slovene sentences. Our work based mainly on putting all this pieces together into a working Slovene NLTK tagger.
-\section{JOS corpora}
-The basic component for building Slovene tagger is \textbf{JOS corpora}. It contains collections of various text in Slovenian language with annotation. For our project we used jos1M corpus that contain 1 million words with it's appropriate lemmas and morphosyntactic descriptions. The JOS is compatible with Slovene\textit{ MULTEXT-East morphosyntactic specifications Version 4}\cite{MULTEXT-East}. It basic purpose is to define word classes. For each class there are various attributes and their appropriate values, which they can be mapped into morphosyntactic descriptions (i.e. MSD). The structure of JOS corpora is in  \textbf{Extensible Markup Language (XML)}. We can easily manipulate XML files in various programming languages (e.g. Python with xml.dom.minidom). This is mandatory because \textit{nltk-trainer}\cite{nltk-trainer} expects special form of input file. For further information see \ref{Corpus transformation}.
-\section{Nltk-trainer - NIKICC}
-Nltk-trainer\cite{nltk-trainer} is project, whose author is Jacob Perkins, from which we took the code for building the tagger. We almost exclusively used the script \textit{train\_tagger.py}, which has the ability to generate NLTK taggers. Its mandatory argument is corpus in .pos format. Other optional arguments can choose wheather to generate a Sequential Tagger, a Brill Tagger or a Classifier Based Tagger. It also has the possibility to set default tag (the tag for words, for which the tagger doesn't know how to tag) and wheather to evaluate the tagger or not. For evaluation of the tagger (section \ref{Evaluation}) this argument was used. 
-\section{Taggers description}
+
 \subsection{Trigram tagger}
 \textit{TODO - NIKICC}
 \subsection{Brill tagger}
 \textit{TODO - BANIČ}
 \subsection{Naive Bayes tagger}
 \textit{TODO - BANIČ}
+
+\section{Related work}
+\subsection{Nltk-trainer - NIKICC}
+Nltk-trainer\cite{nltk-trainer} is project, whose author is Jacob Perkins, from which we took the code for building the tagger. We almost exclusively used the script \textit{train\_tagger.py}, which has the ability to generate NLTK taggers. Its mandatory argument is corpus in .pos format. Other optional arguments can choose wheather to generate a Sequential Tagger, a Brill Tagger or a Classifier Based Tagger. It also has the possibility to set default tag (the tag for words, for which the tagger doesn't know how to tag) and wheather to evaluate the tagger or not. For evaluation of the tagger (section \ref{Evaluation}) this argument was used. 
+
+
+
+\subsection{JOS corpora}
+The basic component for building Slovene tagger is \textbf{JOS corpora}. It contains collections of various text in Slovenian language with annotation. For our project we used jos1M corpus that contain 1 million words with it's appropriate lemmas and morphosyntactic descriptions. The JOS is compatible with Slovene\textit{ MULTEXT-East morphosyntactic specifications Version 4}\cite{MULTEXT-East}. It basic purpose is to define word classes. For each class there are various attributes and their appropriate values, which they can be mapped into morphosyntactic descriptions (i.e. MSD). The structure of JOS corpora is in  \textbf{Extensible Markup Language (XML)}. We can easily manipulate XML files in various programming languages (e.g. Python with xml.dom.minidom). This is mandatory because \textit{nltk-trainer}\cite{nltk-trainer} expects special form of input file. For further information see \ref{Corpus transformation}.
+
 \section{Implementation}
 \subsection{Corpus transformation}\label{Corpus transformation}
 \textit{TODO - BANIČ}
@@ -49,16 +57,45 @@ Nltk-trainer\cite{nltk-trainer} is project, whose author is Jacob Perkins, from 
 \textit{TODO - BANIČ}
 \subsection{Encoding problems}
 \textit{TODO - BANIČ}
-\section{Evaluation}\label{Evaluation}
-\textit{TODO - NIKICC}
-Average accuracy BrillTagger 0.852931.
-Average accuracy NaiveBayes 0.848985.
-Average accuracy TrigramTagger 0.831711.
 
-\begin{figure}[h]
+\section{Results}
+\textit{TODO - NIKICC}
+
+Average accuracy BrillTagger .
+Average accuracy NaiveBayes .
+Average accuracy TrigramTagger .
+
+\begin{table}[htb]
+\begin{center}
+\begin{tabular}{c|c|c|c}
+\textit{fraction} & \textit{Trigram} & \textit{NaiveBayes} & \textit{Brill} \\\hline\hline
+0.75 & 0.828648 & 0.845122 & 0.849031\\
+0.80 & 0.830353 & 0.846063 & 0.851387\\
+0.82 & 0.830551 & 0.846490 & 0.851527\\
+0.84 & 0.829855 & 0.846221 & 0.850839\\ 
+0.86 & 0.830609 & 0.847159 & 0.851240\\ 
+0.88 & 0.829901 & 0.847387 & 0.851680\\ 
+0.90 & 0.828807 & 0.846713 & 0.850737\\ 
+0.91 & 0.827759 & 0.846211 & 0.848899\\ 
+0.92 & 0.827613 & 0.846384 & 0.848964\\ 
+0.93 & 0.828121 & 0.846358 & 0.849090\\ 
+0.94 & 0.827826 & 0.846064 & 0.849636\\ 
+0.95 & 0.828913 & 0.847508 & 0.851041\\
+0.96 & 0.838798 & 0.853809 & 0.860899\\
+0.97 & 0.840060 & 0.856799 & 0.861213\\
+0.98 & 0.841683 & 0.858779 & 0.862869\\
+0.99 & 0.837875 & 0.856699 & 0.857844\\ \hline\hline
+\textit{average} & \textbf{0.831711} & \textbf{0.848985} & \textbf{0.852931}\\
+\end{tabular}
+\end{center}
+\caption{Accuracy of the taggers for different fractions. Fraction tells percentage of corpus used for training the tagger, the rest was used for evaluation.}
+\label{tab:evaluation}
+\end{table}
+
+\begin{figure}[htb]
 \begin{center}
 \leavevmode
-\includegraphics[width=0.6\textwidth]{../evaluation/graph.eps} 
+\includegraphics[width=0.5\textwidth]{../evaluation/graph.pdf} 
 \end{center}
 \caption{Evaluation results, with different fractions}
 \label{fig:evaluation}
@@ -67,7 +104,8 @@ Average accuracy TrigramTagger 0.831711.
 \section{Conclusion}
 \textit{TODO - BANIČ}
 
-%\thispagestyle{empty}
+\section*{Acknowledgements}
+
 \begin{thebibliography}{99}
 \bibitem{JOS} \url{http://nl.ijs.si/jos/}
 \bibitem{nltk-trainer} \url{https://github.com/japerk/nltk-trainer}
