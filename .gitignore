@@ -5,4 +5,5 @@
 *.synctex.gz
 *.toc
 *.out
+*.dvi
 tmp/*
