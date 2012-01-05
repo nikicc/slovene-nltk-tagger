@@ -4,6 +4,8 @@
 \usepackage{babel}
 \usepackage{blindtext}
 \usepackage{hyperref}
+\usepackage{graphicx}
+%\usepackage{wrapfig}
 
 \title{\textbf{Slovene NLTK Tagger}}
 \author{
@@ -49,11 +51,21 @@ Nltk-trainer\cite{nltk-trainer} is project, whose author is Jacob Perkins, from 
 \textit{TODO - BANIČ}
 \section{Evaluation}\label{Evaluation}
 \textit{TODO - NIKICC}
+Average accuracy BrillTagger 0.852931.
+Average accuracy NaiveBayes 0.848985.
+Average accuracy TrigramTagger 0.831711.
+
+\begin{figure}[h]
+\begin{center}
+\leavevmode
+\includegraphics[width=0.6\textwidth]{../evaluation/graph.eps} 
+\end{center}
+\caption{Evaluation results, with different fractions}
+\label{fig:evaluation}
+\end{figure}
+
 \section{Conclusion}
 \textit{TODO - BANIČ}
-
-%\tableofcontents\newpage
-%\blinddocument
 
 %\thispagestyle{empty}
 \begin{thebibliography}{99}
