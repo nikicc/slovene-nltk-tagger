@@ -1,8 +1,8 @@
-\documentclass[10pt, conference, compsocconf]{IEEEtran}
-%\hyphenation{op-tical net-works semi-conduc-tor}
+\documentclass[11pt, conference, compsocconf]{IEEEtran}
 \usepackage[utf8]{inputenc}
 \usepackage[pdftex]{graphicx} % for images
 \usepackage{hyperref}
+\usepackage{listings}
 
 \title{Slovene NLTK Tagger}
 \author{
@@ -19,6 +19,15 @@
 	\footnotesize \texttt{MAIL@} \\
 }
 
+\lstset{
+	language=bash,
+	basicstyle={\ttfamily\small},
+	xleftmargin=17pt,
+	breaklines=true,
+	extendedchars=\true,
+	frame=single
+}
+
 \begin{document}
 \maketitle
 \thispagestyle{empty}
@@ -27,9 +36,9 @@
 This paper describes the process of building NLTK tagger for custom language. NLTK stands for Natural Language Toolkit, a library for use in Python (version 2.7).
 Tagger is a object, which processes a sequence of words and attaches a part of speech tag to each word.
 Our language of implemetation was Slovene.
-We constructed sequential \textbf{Trigram tagger}, \textbf{Brill tagger} and classifier based \textbf{Naive Bayes tagger}, which differ in tagging accuracy and time consumed for tagging. All this differences are also detaily compared.
+We constructed sequential \textbf{Trigram tagger}, \textbf{Brill tagger} and classifier based \textbf{Naive Bayes tagger}, which differ in tagging accuracy and time consumed for tagging. All this differences are also detaily compared. We recommend using the Brill tagger.
 \\\\
-\textit{Keywords:} Tagger, corpus, training
+\textit{Keywords:} Tagger, corpus, training, tagging accuracy, time consumed
 
 \section{Introduction} %NIKICC
 Let us begin with the description of implemented taggers.
@@ -66,31 +75,48 @@ poglavje 5.6
 
 \section{Related work}
 \subsection{Nltk-trainer} %NIKICC
-The code for building the tagger was taken form \textit{Nltk-trainer}\cite{nltk-trainer} project, whose author is Jacob Perkins.
-We almost exclusively used the script \textit{train\_tagger.py}, which has the ability to generate NLTK taggers.
-Its mandatory argument is a corpus in .pos format.
-Other optional arguments can choose wheather to generate a Sequential Tagger, a Brill Tagger or a Classifier Based Tagger.
-It also has the possibility to set default tag and wheather to evaluate the tagger or not.
-This argument was used for evaluating constructed taggers (see section \ref{results}). 
+The code for building the tagger was taken from \textit{Nltk-trainer}  project \cite{nltk-trainer}, whose author is Jacob Perkins.
+Its an open-source project hosting on Github, with moto to \textit{Train NLTK objects with zero code}.
+We almost exclusively used the script \texttt{train\_tagger.py}, which has the ability to generate NLTK taggers. The 
 
-\subsection{JOS corpora} %BANIČ
-The basic component for building Slovene tagger is \textbf{JOS corpora}.
+\subsection{JOS corpus} %BANIČ
+The basic component for building Slovene tagger is \textbf{JOS corpus} from JOS project \cite{JOS}. It stands for: \textit{Jezikoslovno Označevanje Slovenskega jezika} (Linguistic annotation of Slovenian language).
 It contains collections of various text in Slovenian language with annotation.
 For our project we used jos1M corpus that contain 1 million words with it's appropriate lemmas and morphosyntactic descriptions.
 The JOS is compatible with Slovene\textit{ MULTEXT-East morphosyntactic specifications Version 4}\cite{MULTEXT-East}.
 It basic purpose is to define word classes.
 For each class there are various attributes and their appropriate values, which they can be mapped into morphosyntactic descriptions (i.e. MSD).
 The structure of JOS corpora is in  \textbf{Extensible Markup Language (XML)}.
-We can easily manipulate XML files in various programming languages (e.g. Python with xml.dom.minidom).
-This is mandatory because \textit{nltk-trainer}\cite{nltk-trainer} expects special form of input file.
-For further information see \ref{Corpus transformation}.
 
 \section{Implementation}
 \subsection{Corpus transformation} %BANIČ
 \label{Corpus transformation} 
-\textit{TODO - BANIČ}
+\textit{TODO - BANIČ}\\
+We can easily manipulate XML files in various programming languages (e.g. Python with xml.dom.minidom).
+This is mandatory because \textit{nltk-trainer}\cite{nltk-trainer} expects special form of input file.
+For further information see \ref{Corpus transformation}.
+
 \subsection{Training the tagger} %NIKICC
-\textit{TODO - NIKICC}
+As mentioned above, the script \texttt{train\_tagger.py} was used for this pupose. Its mandatory argument is a corpus in .pos format, which generation is described in \ref{Corpus transformation}. Beside this, there are many optional arguments. Here we will describe basics, for further description run script help with
+\begin{lstlisting}
+train_tagger.py --help
+\end{lstlisting}
+\par
+One is wheather to generate a Sequential Tagger, a Brill Tagger or a Classifier Based Tagger. For Sequential we can then select sequential backoff algorithm. This can be any combination of the following letters:
+\begin{itemize}
+\item a: AffixTagger
+\item u: UnigramTagger
+\item b: BigramTagger
+\item t: TrigramTagger
+\end{itemize}
+The default is \textit{aubt}, which was used for our Trigram tagger, but you can set this to the empty string to not train a sequential backoff tagger. The Brill Tagger is trained in front of the other tagger, which in our implementation was the Trigram tagger. When building classifier based algorithm, we must select the classifier or the sequence of classifier. Following are supported: NaiveBayes, DecisionTree, Maxent, GIS, IIS, CG, BFGS, Powell, LBFGSB, Nelder-Mead, MEGAM and TADM. We should mention, that the time spent for training classifier based tagger, is much larger than, the time for a sequential or brill.
+\par
+Script also has the possibility to set default tag. We used \textit{-Neznan-}, which is Slovene word for \textit{-unknown-}.
+\par
+Last argument, that should be mentioned, is wheather to evaluate the tagger or not and the procentage of sentaces to be used. The default value is 1, which means that the \textit{same} sentances are first used for training the tagger and then for evaluation. We reccomend this argument to be set below 1. If so, the right approach is used.
+Sentances are devided into two groups, one in used for training and second for evaluation. \textit{Fraction} is the procentage of sentances assigned to training group. 
+This was used for evaluating constructed taggers. For results of this evaluation see section \ref{results}).
+
 \subsection{Usage with NLTK} %BANIČ
 \textit{TODO - BANIČ}
 \subsection{Encoding problems} %BANIČ
@@ -98,8 +124,7 @@ For further information see \ref{Corpus transformation}.
 
 \section{Results} %NIKICC
 \label{results}
-For all constructed taggers, we here provide their accuracy. First we divided the learning set into two groups (\textit{fraction} is the procentage of sentances assigned to first group).
-Now we construct the tagger on the first group and then evaluate its accuracy with the second group. The results, which were obtained by repeating this proces for various fractions, are shown in table \ref{tab:evaluation} and figure \ref{fig:evaluation}.
+For all constructed taggers, we here provide their accuracy. The results were obtained by repeating the proces of building the tagger with various evaluation arguments. See table \ref{tab:evaluation} and figure \ref{fig:evaluation}.
 
 \begin{table}[htb]
 \begin{center}
@@ -132,13 +157,15 @@ Now we construct the tagger on the first group and then evaluate its accuracy wi
 \begin{center}
 \includegraphics[width=0.5\textwidth]{../evaluation/graph.pdf} 
 \end{center}
-\caption{Accuracy evaluation results from table \ref{tab:evaluation}.}
-\label{fig:evaluation_speed}
+\caption{Accuracy evaluation results.}
+\label{fig:evaluation}
 \end{figure}
-
-During this evaluation we discover an other paramater, which should be taken into account.
+\par
+To conclude, there are no major differences in tagging accuracy. The Brill and the Naive Bayes are about 2\% better than Trigram.
+\par
+However, during this evaluation we discover an other paramater, which should be taken into account.
 Under the assumption that most of the time was actually spent for tagging the sentances (besides just testing for equallity and percentage calculation are needed), we noticed that the time for evaluations differ drastically.
-The results of resarching this observation are listed in table \ref{tab:evaluation_speed} and figure \ref{fig:evaluation_speed}. The difference is enormous. Brill and Trigram run at almost the same speed, while Naive Bayes runs much slower.
+The results of resarching time consumption are listed in table \ref{tab:evaluation_speed} and graphically represented on figure \ref{fig:evaluation_speed}.
 
 \begin{table}[htb]
 \begin{center}
@@ -172,18 +199,17 @@ The results of resarching this observation are listed in table \ref{tab:evaluati
 \begin{center}
 \includegraphics[width=0.5\textwidth]{../evaluation/graph_speed.pdf} 
 \end{center}
-\caption{Time measurements from table \ref{tab:evaluation_speed}. NOTE: The green line is not visible because it is right under the red one.}
-\label{fig:evaluation}
+\caption{Spent time measurements. NOTE: The green line is not visible because it is right under the red one.}
+\label{fig:evaluation_speed}
 \end{figure}
 
+The difference here is enormous. Brill and Trigram run at almost the same speed, while Naive Bayes runs extremely slower.
 
 \section{Conclusion} %BANIČ
 \textit{TODO - BANIČ}
 
 \section*{Acknowledgements}
-
-\section{Currently not used}
-The result of this project depends on two other larger projects. First is \textit{JOS}\cite{JOS}(in Slovene it stands for: "Jezikoslovno Označevanje Slovenskega jezika"), from which we used the corpuses (large and structured set of texts). Second, \textit{nltk-trainer}\cite{nltk-trainer}, is an open-source project hosting on Github, which was used for actual training of the tagger on Slovene sentences. Our work based mainly on putting all this pieces together into a working Slovene NLTK tagger.
+We would like to express our our gratitute to all the contributor of \textit{JOS} \cite{JOS} and  \textit{nltk-trainer} \cite{nltk-trainer} projects and out mentor at Faculty of Computer and Information Science.
 
 \begin{thebibliography}{99}
 \bibitem{JOS} \url{http://nl.ijs.si/jos/}
