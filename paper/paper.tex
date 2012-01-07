@@ -70,6 +70,16 @@ Altrough we use the name trigram all throughtout this paper, we acctually refer 
 \textit{TODO - BANIČ}
 Banič glej ta link : nltk.googlecode.com/svn/trunk/doc/book/ch05.html
 poglavje 5.6
+The Brill tagger is another part-of-speech tagger and was first described by Eric Brill in 1993. Before trying to explain it, we must address issues with all n-gram taggers (e.g. \textit{Trigram tagger}).
+
+First issue with n-gram tagger is size of their n-gram table. If we wan't to use the tagger on mobile computing device, compromise must be taken between performance and model size. 
+
+A second issue with n-gram tagger is that the only information it considers from prior context is tags. This is not practical because words themselves are useful information also. Therefore n-gram taggers are impractical models to be used to identify words in context. 
+  
+To bypass these problems we can use \textit{Brill tagger}. It can be summarised as an transformation-basede learning and performs very well using models that are just a fraction of the size of n-gram taggers.
+
+The general idea is very simple: guess the tag of each word, then go back and fix the mistakes. In this way, a Brill tagger successively transforms a bad tagging of a text into a better one. As with n-gram tagging, this is a supervised learning method, since we need annotated training data to figure out whether the tagger's guess is a mistake or not. However, unlike n-gram tagging, it does not count observations but compiles a list of transformational correction rules.
+
 \subsection{Naive Bayes tagger} %BANIČ
 \textit{TODO - BANIČ}
 
