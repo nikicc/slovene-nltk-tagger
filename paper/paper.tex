@@ -3,7 +3,7 @@
 \usepackage[pdftex]{graphicx} % for images
 \usepackage{hyperref}
 \usepackage{listings}
-
+\usepackage[T1]{fontenc}
 \title{Slovene NLTK Tagger}
 \author{
 	Niko Colnerič \\
@@ -67,18 +67,18 @@ Altrough we use the name trigram all throughtout this paper, we acctually refer 
 \textit{affix}\footnote{The Affix tagger learns prefix and suffix patterns to determine the part of speech tag for word.}, \textit{unigram}, \textit{bigram} and \textit{trigram} taggers in this order respectively. First we build affix, which is used as ad \textit{backoff-tagger} for unigram. Unigram is afterwards used as a backoff-tagger for bigram, which is finally used for trigram.
 
 \subsection{Brill tagger} %BANIČ
-\textit{TODO - BANIČ}
-Banič glej ta link : nltk.googlecode.com/svn/trunk/doc/book/ch05.html
-poglavje 5.6
-The Brill tagger is another part-of-speech tagger and was first described by Eric Brill in 1993. Before trying to explain it, we must address issues with all n-gram taggers (e.g. \textit{Trigram tagger}).
 
-First issue with n-gram tagger is size of their n-gram table. If we wan't to use the tagger on mobile computing device, compromise must be taken between performance and model size. 
+The Brill tagger is another part-of-speech tagger and was first described by Eric Brill in 1993. Before trying to explain it, we must address issues with n-gram taggers (e.g. \textit{Trigram tagger}).
+
+First issue with n-gram taggers is size of their n-gram table. If we wan't to use tagging process on mobile computing device, compromise must be taken between performance and model size. 
 
 A second issue with n-gram tagger is that the only information it considers from prior context is tags. This is not practical because words themselves are useful information also. Therefore n-gram taggers are impractical models to be used to identify words in context. 
   
-To bypass these problems we can use \textit{Brill tagger}. It can be summarised as an transformation-basede learning and performs very well using models that are just a fraction of the size of n-gram taggers.
+To bypass those issues we can use \textit{Brill tagger}. It can be summarised as an transformation-based learning and performs very well using models that are just a fraction of the size of n-gram taggers.
 
-The general idea is very simple: guess the tag of each word, then go back and fix the mistakes. In this way, a Brill tagger successively transforms a bad tagging of a text into a better one. As with n-gram tagging, this is a supervised learning method, since we need annotated training data to figure out whether the tagger's guess is a mistake or not. However, unlike n-gram tagging, it does not count observations but compiles a list of transformational correction rules.
+Despite obvious differences between Brill tagger and n-gram tagger there is one similarity. Both of them use \textit{supervised learning} method, since we require annotated training data to make sure whether the tagger's guess is a mistake or not.
+
+The idea behind the Brill tagger is: \textit{guess the tag of each word, then go back and fix the mistakes}. Basically, Brill tagger can transform bad tagging into a better one. 
 
 \subsection{Naive Bayes tagger} %BANIČ
 \textit{TODO - BANIČ}
@@ -90,7 +90,7 @@ Its an open-source project hosting on Github, with moto to \textit{Train NLTK ob
 We almost exclusively used the script \texttt{train\_tagger.py}, which has the ability to generate NLTK taggers. The 
 
 \subsection{JOS corpus} %BANIČ
-The basic component for building Slovene tagger is \textbf{JOS corpus} from JOS project \cite{JOS}. It stands for: \textit{Jezikoslovno Označevanje Slovenskega jezika} (Linguistic annotation of Slovenian language).
+The basic component for building Slovene tagger is \textit{JOS corpus} from JOS project \cite{JOS}. It stands for: \textit{Jezikoslovno Označevanje Slovenskega jezika} (Linguistic annotation of Slovenian language).
 It contains collections of various text in Slovenian language with annotation.
 For our project we used jos1M corpus that contain 1 million words with it's appropriate lemmas and morphosyntactic descriptions.
 The JOS is compatible with Slovene\textit{ MULTEXT-East morphosyntactic specifications Version 4}\cite{MULTEXT-East}.
@@ -104,10 +104,31 @@ The structure of JOS corpora is in  \textbf{Extensible Markup Language (XML)}.
 \textit{TODO - BANIČ}\\
 We can easily manipulate XML files in various programming languages (e.g. Python with xml.dom.minidom).
 This is mandatory because \textit{nltk-trainer}\cite{nltk-trainer} expects special form of input file.
-For further information see \ref{Corpus transformation}.
+
+The first step for corpus transformation is to identify proper \textit{XML tags}\cite{xml_tags} in JOS corpora. There are several types, but we must parse only those in \textit{sentence tag }(\textit{<s>}):
+\begin{itemize}
+\item[•]\textit{<S>} - space.
+\item[•]\textit{<c>} - character i.e. punctuation marks (e.g. period (.), comma (,), colon (:), ... ).
+\item[•]\textit{<w>} - word.
+\item[•]\textit{<term>} - a word or group of words designating something, especially in a particular field. 
+\end{itemize}
+
+Trainer's mandatory argument is a corpus in .pos format. It contains words with their morphosyntactic descriptions and punctuation marks. The correct syntax is shown in the next example:
+\texttt{Ameriški/Ppnmeid CNN/Slmei ,/,  brez/Dr }
+
+The trainer will train the .pos properly if:
+\begin{itemize}
+\item[•] The words and their MSD are separated with slash.
+\item[•] Every punctuation mark is separated with slash and then follows the same punctuation mark.
+\item[•] Words and punctuation marks are between space.
+\end{itemize}
+
+If we follow these "rules", implementation is simple. We just need to go through all child tags in sentence tag and properly write them in a file. Because Slovenian language contain letters with caron, proper encoding of tags must be provided. This is simply done with function \textit{encode()} (e.g. encode("utf-8") - this is proper encoding for Slovenian language).
+\textit{Jos1M} corpus is build up with 10 XML files (e.g. \textit{jos1M-01}, \textit{jos1M-02}, ...), so we must parse all of them. 
+File \texttt{transformJOS.py} contains the corpus transformation.
 
 \subsection{Training the tagger} %NIKICC
-As mentioned above, the script \texttt{train\_tagger.py} was used for this pupose. Its mandatory argument is a corpus in .pos format, which generation is described in \ref{Corpus transformation}. Beside this, there are many optional arguments. Here we will describe basics, for further description run script help with
+As mentioned above, the script \texttt{train\_tagger.py} was used for this purpose. Its mandatory argument is a corpus in .pos format, which generation is described in \ref{Corpus transformation}. Beside this, there are many optional arguments. Here we will describe basics, for further description run script help with
 \begin{lstlisting}
 train_tagger.py --help
 \end{lstlisting}
@@ -123,12 +144,15 @@ The default is \textit{aubt}, which was used for our Trigram tagger, but you can
 \par
 Script also has the possibility to set default tag. We used \textit{-Neznan-}, which is Slovene word for \textit{-unknown-}.
 \par
-Last argument, that should be mentioned, is wheather to evaluate the tagger or not and the procentage of sentaces to be used. The default value is 1, which means that the \textit{same} sentances are first used for training the tagger and then for evaluation. We reccomend this argument to be set below 1. If so, the right approach is used.
+Last argument, that should be mentioned, is wheather to evaluate the tagger or not and the procentage of sentaces to be used. The default value is 1, which means that the \textit{same} sentances are first used for training the tagger and then for evaluation. We recommend this argument to be set below 1. If so, the right approach is used.
 Sentances are devided into two groups, one in used for training and second for evaluation. \textit{Fraction} is the procentage of sentances assigned to training group. 
 This was used for evaluating constructed taggers. For results of this evaluation see section \ref{results}).
 
 \subsection{Usage with NLTK} %BANIČ
 \textit{TODO - BANIČ}
+We can use the trained tagger and NLTK to see how they can be used in Slovenian language. The requirements are installed NLTK and Python 2.7. We set an example in file \texttt{example.py}. First we need to import nltk and \textit{pickle}, which is module for serialization and de-serialization a Python object structure ("pickling" - Python object hierarchy is converted into a byte stream). Pickle is used for loading classifiers such as Trigram tagger, Brill tagger, etc. 
+
+We also implemented a function that returns two description dictionaries for  MSDs with attribute=value expansions in Slovene and English. That way users can view which part-of-speech words belong to.
 \subsection{Encoding problems} %BANIČ
 \textit{TODO - BANIČ}
 
@@ -226,5 +250,6 @@ We would like to express our our gratitute to all the contributor of \textit{JOS
 \bibitem{nltk-trainer} \url{https://github.com/japerk/nltk-trainer}
 \bibitem{MULTEXT-East} \url{http://nl.ijs.si/ME/V4/msd/html/msd-sl.html}
 \bibitem{NLTKBOOK} \url{http://www.nltk.org/book}
+\bibitem{xml_tags} \url{http://nl.ijs.si/ssj/schema/tei_ssj_doc.pdf}
 \end{thebibliography}
 \end{document}
