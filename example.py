@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*
 
 import pickle
 import nltk.data
@@ -17,6 +18,13 @@ def prettyPrintWithDescription(uniResult, description):
     for (x,y) in uniResult:
 	if y in description:
 	    print "(",x.decode("utf-8")," | ",y,") - "+unicode(description[y][0],"utf-8")
+        else:
+	    print "(",x.decode("utf-8")," | ",y,") - ni razlage"
+
+def prettyPrintWithFullDescription(uniResult, description):
+    for (x,y) in uniResult:
+	if y in description:
+	    print "(",x.decode("utf-8")," | ",y,") - "+unicode(description[y][0],"utf-8")+" "+unicode(description[y][1],"utf-8")
         else:
 	    print "(",x.decode("utf-8")," | ",y,") - ni razlage"
 
@@ -71,9 +79,9 @@ _t1 = time.time()
 
 
 #uText is input text
-#uText = 'Lep je dan, vse diši že po pomladi!'
+uText = 'Lep je dan, vse diši že po pomladi!'
 #uText = 'Živé naj vsi naródi, ki hrepené dočakat dan, da, koder sonce hodi, prepir iz svéta bo pregnan, ko rojak prost bo vsak, ne vrag, le sosed bo mejak.'
-uText = 'Potem se je obrnil proti nam in skozi solze izoblikoval najlepši nasmeh, kar sem jih videl v življenju.'
+#uText = 'Potem se je obrnil proti nam in skozi solze izoblikoval najlepši nasmeh, kar sem jih videl v življenju.'
 
 
 _t2 = time.time()
