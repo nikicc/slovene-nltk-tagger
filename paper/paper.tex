@@ -36,7 +36,7 @@
 This paper describes the process of building NLTK tagger for a custom language. NLTK stands for Natural Language Toolkit, a library for use in Python (version 2.7).
 Tagger is an object, which processes a sequence of words and attaches a part of speech tag to each word.
 Our language of implemetation was Slovene.
-We constructed sequential \textit{Trigram tagger}, \textit{Brill tagger} and classifier based \textit{Naive Bayes tagger}, which differ in tagging accuracy and time consumed for tagging. All this differences are also detaily compared. We recommend using the Brill tagger.
+We constructed sequential \textit{Trigram tagger}, \textit{Brill tagger} and classifier based \textit{Naive Bayes tagger}, which differ in tagging accuracy and time consumed for tagging. All this differences are also detaily compared. We recommend using the Brill tagger. 
 \\\\
 \textit{Keywords:} Tagger, corpus, training, tagging accuracy, time consumed
 
@@ -228,14 +228,38 @@ We also implemented a function that returns two description dictionaries for MSD
 	( pomladi  |  SOZEM ) - samostalnik\\
 	( !  |  ! ) - ni razlage}\\
 
-We must exmplain, that here only the part of whole MSD is printed. For example the whole MSD for \textit{Lep} is:\\\\
-\textit{pridevnik vrsta=splošni spol=moški število=ednina sklon=imenovalnik živost=0 vid=0 oblika=0 oseba=0 nikalnost=0 stopnja=nedoločeno določnost=ne število\_svojine=0 spol\_svojine=0 naslonskost=0 zapis=0}\\
-\par
+We must exmplain, that here only the part of whole MSD is printed. For example the whole MSD for \textit{Lep} shown in table \ref{tab:MSDLep}.
+
+\begin{table}[h]
+\begin{center}
+\begin{tabular}{c|c}
+\multicolumn{2}{c}{pridevnik}\\\hline\hline
+vrsta & splošni \\
+spol & moški \\
+število & ednina \\
+sklon & imenovalnik \\
+živost & 0 \\
+vid & 0 \\
+oblika & 0 \\
+oseba & 0 \\
+nikalnost & 0 \\
+stopnja & nedoločeno \\
+določnost & ne \\
+število\_svojine & 0 \\
+spol\_svojine & 0 \\
+naslonskost & 0 \\
+zapis & 0 \\
+\end{tabular}
+\end{center}
+\caption{Whole MSD for \textit{Lep} in Slovene}
+\label{tab:MSDLep}
+\end{table}
+
 The first output was creted with function \textit{prettyPrintWithDescription}, full output can be created with \textit{prettyPrintWithFullDescription}. Both function are defined in \texttt{example.py}
 \par
 But there is an issue. Because Slovenian language contain letters with caron, the output will have unicode symbols for them. In the previous examples, the output is already corrected. Solution is described in the following section. 
-\subsection{Encoding problems} %BANIČ
 
+\subsection{Encoding problems} %BANIČ
 Printing the result of our example is not optimal. Because we want users to know what these characters are, we implemented a solution. To resolve this, we must decode every word to \textit{UTF - 8} (because words we tag are in UTF - 8). If a user wants to print the result in "pretty" form, he should call function \textit{prettyPrint()} or \textit{prettyPrintByLine()} (both are implemented in \texttt{example.py}).
 
 \section{Results} %NIKICC
@@ -326,7 +350,7 @@ To conclude our paper, tagging in Slovene language is practical with proper use 
 \par
 Besides these three taggers we built, others can be built without any bigger modification. All that is needed is to set some arguments when calling the script \texttt{train\_tagger.py}. The main reason we built only these three is computing power. These three are the only one we could built and evaluate in some resonable time.
 \par
-We also contacted the NLTK developers group and will arrange our taggers to become the part of NLTK.
+Our whole project is publicly available on github \cite{CODE}. We also contacted the NLTK developers group and will arrange our taggers to become the part of NLTK.
 
 \section*{Acknowledgements}
 We would like to express our gratitude to all the contributors of \textit{JOS} \cite{JOS} project, \textit{nltk-trainer} \cite{nltk-trainer} project and to Marko Robnik-Šikonja, PhD, Associate Professor, who was our mentor at Faculty of Computer and Information Science. Also this project would not be possible without \textit{Natural Language Toolkit} \cite{nltk} and their admirable documentation.
@@ -339,5 +363,6 @@ We would like to express our gratitude to all the contributors of \textit{JOS} \
 \bibitem{NLTKBOOK} \url{http://www.nltk.org/book}
 \bibitem{xml_tags} \url{http://nl.ijs.si/ssj/schema/tei_ssj_doc.pdf}
 \bibitem{tokenizer} \url{http://docs.huihoo.com/nltk/0.9.5/guides/tokenize.html}
+\bibitem{CODE} \url{https://github.com/nikicc/slovene-nltk-tagger}
 \end{thebibliography}
 \end{document}
