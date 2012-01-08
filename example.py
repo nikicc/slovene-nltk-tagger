@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*
+
 import pickle
 import nltk.data
 import time, datetime
@@ -7,18 +7,18 @@ from nltk import PunktWordTokenizer
 ### FUNCTIONS ###
 #prettPrint
 def prettyPrint(uniResult):
-    print ", ".join("(%s | %s)" % a for a in uniResult)
+    print ", ".join("(%s | %s)" % (x.decode("utf-8"),y) for (x,y) in uniResult)
 
 def prettyPrintByLine(uniResult):
-    for a in uniResult:
-        print "(%s | %s)" % a
+    for (x,y) in uniResult:
+        print "(",x.decode("utf-8")," | ",y,")"
 
 def prettyPrintWithDescription(uniResult, description):
     for (x,y) in uniResult:
 	if y in description:
-	    print "(",x," | ",y,") - "+unicode(description[y][0],"utf-8")
+	    print "(",x.decode("utf-8")," | ",y,") - "+unicode(description[y][0],"utf-8")
         else:
-	    print "(",x," | ",y,") - ni razlage"
+	    print "(",x.decode("utf-8")," | ",y,") - ni razlage"
 
 #slo tag - input UNICODE
 def sloTag(uText):
@@ -71,13 +71,14 @@ _t1 = time.time()
 
 
 #uText is input text
-#uText = u'Lep je dan, vse diši že po pomladi!'
-#uText = u'Živé naj vsi naródi, ki hrepené dočakat dan, da, koder sonce hodi, prepir iz svéta bo pregnan, ko rojak prost bo vsak, ne vrag, le sosed bo mejak.'
-uText = u'Potem se je obrnil proti nam in skozi solze izoblikoval najlepši nasmeh, kar sem jih videl v življenju.'
+#uText = 'Lep je dan, vse diši že po pomladi!'
+#uText = 'Živé naj vsi naródi, ki hrepené dočakat dan, da, koder sonce hodi, prepir iz svéta bo pregnan, ko rojak prost bo vsak, ne vrag, le sosed bo mejak.'
+uText = 'Potem se je obrnil proti nam in skozi solze izoblikoval najlepši nasmeh, kar sem jih videl v življenju.'
 
 
 _t2 = time.time()
 result = sloTag2(uText)
+print result
 _t3 = time.time()
 
 prettyPrintWithDescription(result, dict_sl)

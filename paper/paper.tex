@@ -1,4 +1,4 @@
-\documentclass[11pt, conference, compsocconf]{IEEEtran}
+\documentclass[10pt, conference, compsocconf]{IEEEtran}
 \usepackage[utf8]{inputenc}
 \usepackage[pdftex]{graphicx} % for images
 \usepackage{hyperref}
@@ -36,7 +36,7 @@
 This paper describes the process of building NLTK tagger for custom language. NLTK stands for Natural Language Toolkit, a library for use in Python (version 2.7).
 Tagger is a object, which processes a sequence of words and attaches a part of speech tag to each word.
 Our language of implemetation was Slovene.
-We constructed sequential \textbf{Trigram tagger}, \textbf{Brill tagger} and classifier based \textbf{Naive Bayes tagger}, which differ in tagging accuracy and time consumed for tagging. All this differences are also detaily compared. We recommend using the Brill tagger.
+We constructed sequential \textit{Trigram tagger}, \textit{Brill tagger} and classifier based \textit{Naive Bayes tagger}, which differ in tagging accuracy and time consumed for tagging. All this differences are also detaily compared. We recommend using the Brill tagger.
 \\\\
 \textit{Keywords:} Tagger, corpus, training, tagging accuracy, time consumed
 
@@ -80,8 +80,39 @@ Despite obvious differences between Brill tagger and n-gram tagger there is one 
 
 The idea behind the Brill tagger is: \textit{guess the tag of each word, then go back and fix the mistakes}. Basically, Brill tagger can transform bad tagging into a better one. 
 
-\subsection{Naive Bayes tagger} %BANIČ
-\textit{TODO - BANIČ}
+\subsection[Naive Bayes classifier]{Naive Bayes classifier\footnote{Definition and images summerized from \cite{NLTKBOOK}}}
+Both Brill and Trigram are sequential backoff taggers. Meanwhile, Naive Bayes is \textit{classifier based tagger}.
+Classification is a process where, for a given output, we have to choose the correct class. Basically, it is an  procedure for assigning  input data into one of a given number of categories.
+
+Examples of classification tasks are:
+\begin{itemize}
+\item[•] whether an email is spam or not.
+\item[•] diagnosis to a given patient as described by observed characteristics of the patient
+\end{itemize}
+The basic classification task has a number of interesting variants. For example, in multi-class classification, each instance may be assigned multiple labels; in open-class classification, the set of labels is not defined in advance; and in sequence classification, a list of inputs are jointly classified.
+
+
+Every feature in naive Bayes classifier can determine which label can be assigned to a given input. Choosing a label for an input is an process, that consists of calculating the prior probability of each label (it is determined by calculating frequency in training set). Priori probability is combined with contribution from each feature. This is necessary to get the likelihood estimate for each label. Input value is then assigned the label whose likelihood estimate is the highest. The process is shown in \ref{fig:naive-bayes-triangle}.
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[width=0.4\textwidth]{naive-bayes-triangle.png} 
+\end{center}
+\caption{An illustration of the procedure used by the naive Bayes classifier to choose the topic for a document.}
+\label{fig:naive-bayes-triangle}
+\end{figure}
+
+Let's assume that in the training corpus most documents have automotive topic. Because of this assumption, the classifier starts near "automotive" label. Later it must take into consideration the effect of each feature. Example considers, that input document contains word "dark", which indicates for "murder mystery", but also contains the word "football", which (strongly) indicate for "sports". After every feature has made its contribution, the classifier checks which label it is closest to, and assigns that label to the input.
+
+Features make their contribution to the  decision by voting against those labels, that don't occur with this feature. Likelihood score is therefore reduced for each label by multiplying it with the probability that an input value with that label would have that feature. Suppose that the word occurs ran occurs in  12\% of the sports documents, 10\% of the murder mystery documents, and 2\% of the automotive documents. The likelihood score for the sports label will be multiplied by 0.12, the likelihood score for the murder mystery label will be multiplied by 0.1, and the likelihood score for the automotive label will be multiplied by 0.02. The overall effect will be to slightly reduce the score of the sports label, reduce the murder mystery label (more then sports label) and significantly reduce the automotive label. Figure \ref{fig:naive-bayes-bargraph} illustrates this example.
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[width=0.4\textwidth]{naive_bayes_bargraph.png} 
+\end{center}
+\caption{Illustrating the process of calculating label likelihoods with naive Bayes.}
+\label{fig:naive-bayes-bargraph}
+\end{figure}
 
 \section{Related work}
 \subsection{Nltk-trainer} %NIKICC
@@ -96,12 +127,12 @@ For our project we used jos1M corpus that contain 1 million words with it's appr
 The JOS is compatible with Slovene\textit{ MULTEXT-East morphosyntactic specifications Version 4}\cite{MULTEXT-East}.
 It basic purpose is to define word classes.
 For each class there are various attributes and their appropriate values, which they can be mapped into morphosyntactic descriptions (i.e. MSD).
-The structure of JOS corpora is in  \textbf{Extensible Markup Language (XML)}.
+The structure of JOS corpora is in  \textit{Extensible Markup Language (XML)}.
 
 \section{Implementation}
 \subsection{Corpus transformation} %BANIČ
 \label{Corpus transformation} 
-\textit{TODO - BANIČ}\\
+
 We can easily manipulate XML files in various programming languages (e.g. Python with xml.dom.minidom).
 This is mandatory because \textit{nltk-trainer}\cite{nltk-trainer} expects special form of input file.
 
@@ -114,7 +145,7 @@ The first step for corpus transformation is to identify proper \textit{XML tags}
 \end{itemize}
 
 Trainer's mandatory argument is a corpus in .pos format. It contains words with their morphosyntactic descriptions and punctuation marks. The correct syntax is shown in the next example:
-\texttt{Ameriški/Ppnmeid CNN/Slmei ,/,  brez/Dr }
+\textit{Ameriški/Ppnmeid CNN/Slmei ,/,  brez/Dr }
 
 The trainer will train the .pos properly if:
 \begin{itemize}
@@ -149,13 +180,48 @@ Sentances are devided into two groups, one in used for training and second for e
 This was used for evaluating constructed taggers. For results of this evaluation see section \ref{results}).
 
 \subsection{Usage with NLTK} %BANIČ
-\textit{TODO - BANIČ}
-We can use the trained tagger and NLTK to see how they can be used in Slovenian language. The requirements are installed NLTK and Python 2.7. We set an example in file \texttt{example.py}. First we need to import nltk and \textit{pickle}, which is module for serialization and de-serialization a Python object structure ("pickling" - Python object hierarchy is converted into a byte stream). Pickle is used for loading classifiers such as Trigram tagger, Brill tagger, etc. 
 
-We also implemented a function that returns two description dictionaries for  MSDs with attribute=value expansions in Slovene and English. That way users can view which part-of-speech words belong to.
+We can use the trained tagger and NLTK to see how they can be used in Slovenian language. The requirements are installed NLTK and Python 2.7. We set an example in file \texttt{example.py}.
+First we need to import following functions:
+\begin{itemize}
+\item[•] \textit{pickle} - it is a module for serialization and de-serialization a Python object structure ("pickling" - Python object hierarchy is converted into a byte stream). Pickle is used for loading classifiers such as Trigram tagger, Brill tagger, etc.
+
+\item[•] \textit{PunktWordTokenizer} \cite{tokenizer} - it  is just one of many NLTK's tokenizers, that can be used to divide strings into lists of substring. Tokenizers are subclasses of \textit{nltk.tokenizer.TokenizerI} interface, which defines the \textit{tokenizer()} method. PunktWordTokenizer uses regular expressions to divide a word into tokens. These tokens are then used by the tagger. Following example will demonstrate, how does PunktWordTokenizer tokenize a sentence. If we have the following sentence:
+
+\textit{Potem se je obrnil proti nam in skozi solze izoblikoval najlepši nasmeh, kar sem jih videl v življenju.}\\
+the tokenizer will output the following list of tokens:
+
+[\textit{'Potem', 'se', 'je', 'obrnil', 'proti', 'nam', 'in', 'skozi', 'solze', 'izoblikoval', 'najlepši', 'nasmeh', ',', 'kar', 'sem', 'jih', 'videl', 'v', 'življenju.'}]
+\item[•] \textit{nltk.data} - it is a module that contains various functions to load NLTK files, such as corpora. We use it for \textit{sentence segmentation}. In some cases user can input not a sentence, but a whole paragraph. Before using PunktWordTokenizer to tokenize sentence into tokens, we need to segment it into sentences. This can be easily used by including Slovene Punkt sentence segmenter. Following example shows, how does sentence segmenter work. If we have the following paragraph:
+
+\textit{Zdravljíca je pesem, ki jo je France Prešeren napisal novembra leta 1844. Po 6. členu ustave je Zdravljica besedilo himne Republike Slovenije. Melodija je iz istoimenske zborovske skladbe skladatelja Stanka Premrla.}\\
+
+the sentence segmenter will output the following list of sentences:
+
+[\textit{'Zdravljíca je pesem, ki jo je France Prešeren napisal novembra leta 1844.', 'Po 6. členu ustave je Zdravljica besedilo himne Republike Slovenije.', 'Melodija je iz istoimenske zborovske skladbe skladatelja Stanka Premrla.'}]
+\end{itemize} 
+
+
+The first step is to use sentence segmenter, to form a list of sentences. This list is then being tokenized with PunktWordTokenizer. One drawback with this tokenizer is that it doesn't tokenize the last word of a sentence and the following period (as shown in the example). Before using the PunktWordTokenizer, we must divide them with space. After we tokenize the sentences, tagging can be used. The result is a list of tuples with words or characters and their appropriate morphosyntactic description. 
+
+We also implemented a function that returns two description dictionaries for MSDs with attribute=value expansions in Slovene and English. This way user can view which part-of-speech words belong to in Slovene or English. Following example demonstrates the expected output:
+\\
+\textit{( Lep  |  PPNMEIN ) - pridevnik \\
+	( je  |  GP-STE-N ) - glagol\\
+	( dan  |  SOMEI ) - samostalnik\\
+	( ,  |  , ) - ni razlage\\
+	( vse  |  ZC-SEI ) - zaimek\\
+	( diši  |  GGNSTE ) - glagol\\
+	( že  |  L ) - členek\\
+	( po  |  DM ) - predlog\\
+	( pomladi  |  SOZEM ) - samostalnik\\
+	( !  |  ! ) - ni razlage}\\
+
+
+But there is an issue. Because Slovenian language contain letters with caron, the output will have unicode symbols for them. In the previous examples, the output is already corrected. How we solve this is described in the following section. 
 \subsection{Encoding problems} %BANIČ
-\textit{TODO - BANIČ}
 
+Printing the result of our example is not optimal. Because we want users to know what these characters are, we implemented a solution. To resolve this, we must decode every word to \textit{UTF - 8} (because words we tag are in UTF - 8). If a user wants to print the result in "pretty" form, he should call function \textit{prettyPrint()} or \textit{prettyPrintByLine()} (both are implemented in \texttt{example.py}).
 \section{Results} %NIKICC
 \label{results}
 For all constructed taggers, we here provide their accuracy. The results were obtained by repeating the proces of building the tagger with various evaluation arguments. See table \ref{tab:evaluation} and figure \ref{fig:evaluation}.
@@ -197,8 +263,8 @@ For all constructed taggers, we here provide their accuracy. The results were ob
 \par
 To conclude, there are no major differences in tagging accuracy. The Brill and the Naive Bayes are about 2\% better than Trigram.
 \par
-However, during this evaluation we discover an other paramater, which should be taken into account.
-Under the assumption that most of the time was actually spent for tagging the sentances (besides just testing for equallity and percentage calculation are needed), we noticed that the time for evaluations differ drastically.
+However, during this evaluation we discover an other parameter, which should be taken into account.
+Under the assumption that most of the time was actually spent for tagging the sentences (besides just testing for equality and percentage calculation are needed), we noticed that the time for evaluations differ drastically.
 The results of resarching time consumption are listed in table \ref{tab:evaluation_speed} and graphically represented on figure \ref{fig:evaluation_speed}.
 
 \begin{table}[htb]
@@ -240,16 +306,19 @@ The results of resarching time consumption are listed in table \ref{tab:evaluati
 The difference here is enormous. Brill and Trigram run at almost the same speed, while Naive Bayes runs extremely slower.
 
 \section{Conclusion} %BANIČ
-\textit{TODO - BANIČ}
+
+To conclude our paper, tagging in Slovene language is practical with proper use of Natural Language Toolkit and \textit{nltk-trainer}. Time spent in seconds for tagging different numbers of words, show that Brill and Trigram ran at the same speed, while Naive Bayes ran slow. There are no major differences in tagging accuracy (Brill and the Naive Bayes are about 2\% better than Trigram).
 
 \section*{Acknowledgements}
-We would like to express our our gratitute to all the contributor of \textit{JOS} \cite{JOS} and  \textit{nltk-trainer} \cite{nltk-trainer} projects and out mentor at Faculty of Computer and Information Science.
-
+We would like to express our gratitude to all the contributors of \textit{JOS} \cite{JOS} and  \textit{nltk-trainer} \cite{nltk-trainer} projects and our mentor at Faculty of Computer and Information Science. Also this project would not be possible without \textit{Natural Language Toolkit} \cite{nltk} and their admirable documentation.
+\\
 \begin{thebibliography}{99}
+\bibitem{nltk} \url{http://www.nltk.org/}
 \bibitem{JOS} \url{http://nl.ijs.si/jos/}
 \bibitem{nltk-trainer} \url{https://github.com/japerk/nltk-trainer}
 \bibitem{MULTEXT-East} \url{http://nl.ijs.si/ME/V4/msd/html/msd-sl.html}
 \bibitem{NLTKBOOK} \url{http://www.nltk.org/book}
 \bibitem{xml_tags} \url{http://nl.ijs.si/ssj/schema/tei_ssj_doc.pdf}
+\bibitem{tokenizer} \url{http://docs.huihoo.com/nltk/0.9.5/guides/tokenize.html}
 \end{thebibliography}
 \end{document}
