@@ -86,7 +86,6 @@ uText = 'Lep je dan, vse diši že po pomladi!'
 
 _t2 = time.time()
 result = sloTag2(uText)
-print result
 _t3 = time.time()
 
 prettyPrintWithDescription(result, dict_sl)
