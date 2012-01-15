@@ -350,7 +350,9 @@ The difference is enormous. Brill and Trigram run at almost the same speed, whil
 \section{Conclusion} %BANIČ
 To conclude our paper, tagging in Slovene language is practical with proper use of Natural Language Toolkit and \textit{nltk-trainer}. Time for tagging show that Brill and Trigram ran at the same speed, while Naive Bayes is much slower. There are no major differences in tagging accuracy, but Brill and the Naive Bayes are about 2\% better than Trigram.
 \par
-Besides the taggers we built, others can be built without any large modifications by calling the script \texttt{train\_tagger.py}.
+Besides the taggers we built, others can be built without any large modifications by calling the script \texttt{train\_tagger.py}. We have no proof that the ones we build are better than the ones we did not. It is possible, that some other tagger would be more accurate or faster or even both. So here is definitely some room for improvements.
+\par
+If we would like to make the taggers more accurate, including other corpuses into the proces of learning would probably help. All we need to do is transform new corpuses into .pos format. The Slovene language has more complicated structure than English, so the corpus needed should be larger.
 \par
 Our whole project is publicly available on github \cite{CODE}. We contacted the NLTK developers group and will arrange our taggers to become a part of NLTK.
 
