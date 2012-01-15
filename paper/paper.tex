@@ -35,23 +35,25 @@
 \section*{Abstract} %NIKICC
 This paper describes the process of building NLTK tagger for a custom language. NLTK stands for Natural Language Toolkit, a library for use in Python (version 2.7).
 Tagger is an object, which processes a sequence of words and attaches a part of speech tag to each word.
-Our language of implemetation was Slovene.
+Our implementation language was Slovene.
 We constructed sequential \textit{Trigram tagger}, \textit{Brill tagger} and classifier based \textit{Naive Bayes tagger}, which differ in tagging accuracy and time consumed for tagging. All this differences are also detaily compared. We recommend using the Brill tagger. 
 \\\\
 \textit{Keywords:} Tagger, corpus, training, tagging accuracy, time consumed
 
 \section{Introduction} %NIKICC
-First, let us say a few words about the structure of the paper. In this chapter, we provide a brief theoretical description of implemented taggers. Next we will describe the related work in section \ref{relatedWork}, which was the base of our project. In section \ref{implementation} the process of implementation itself is explained. The example, how to use the tagger is provided, along with some discussion on encoding problems. Finally in section \ref{results} is the evaluation of accuracy and speed.
+\textit{Part-of-speech tagging} is harder than just having a list of words and their parts of speech, because some words can represent more than one part of speech at different times and because some parts of speech are complex or unspoken. This is not rare in natural languages (as opposed to many artificial languages), a large percentage of word-forms are ambiguous. Native speakers of a language perform grammatical and semantic analysis innately, and thus trained linguists can identify the grammatical parts of speech to various fine degrees depending on the tagging system \cite{wiki}. Although the problem is not trivial for a computer, the taggs are useful categories for many language processing tasks. 
+\par
+In this chapter, we provide a brief theoretical description of implemented taggers. Next we will describe the tools used in section \ref{toolsUsed}, which were the base of our project. In section \ref{implementation} the process of implementation itself is explained. The example, how to use the tagger is provided, along with some discussion on encoding problems. Finally in section \ref{results} is the evaluation of accuracy and speed.
 \par
 Now we begin with the description of implemented taggers.
 
 %NIKICC
-\subsection[Trigram tagger]{Trigram tagger\footnote{Definition and images summarized from \cite{NLTKBOOK}}}
+\subsection{Trigram tagger}
 To understand how \textit{trigram} works, we should first understand \textit{unigram}.
 Unigram taggers are based on a simple statistical algorithm: \textit{for each token, assign the tag that is most likely for that particular token}.
 In the case of tagging with Unigram tagger, we only consider the current token, in isolation from any larger context. The best we can do is tag each word with its \textit{a priori} most likely tag.
 \par
-An n-gram tagger is a generalization of a unigram\footnote{Unigram could also be refereed to as 1-gram} tagger whose context is the current word together with the part-of-speech tags of the $n-1$ preceding tokens, as shown in figure \ref{fig:trigram}.
+An n-gram tagger is a generalization of a unigram tagger whose context is the current word together with the part-of-speech tags of the $n-1$ preceding tokens, as shown in figure \ref{fig:trigram}. Unigram could also be refereed to as 1-gram.
 
 \begin{figure}[h]
 \begin{center}
@@ -63,10 +65,12 @@ An n-gram tagger is a generalization of a unigram\footnote{Unigram could also be
 
 The tag to be chosen, $t_{n}$, is circled, and the context is shaded in grey.
 In the example of an n-gram tagger shown in figure \ref{fig:trigram}, we have $n=3$; that is, we consider the tags of the two preceding words in addition to the current word.
-An n-gram tagger picks the tag that is most likely in the given context.
+An n-gram tagger picks a priori most likely tag in the given context.
 \par
-Although we use the name trigram all throughout this paper, we actually refer to sequential tagger, which consists of
-\textit{affix}\footnote{The Affix tagger learns prefix and suffix patterns to determine the part of speech tag for word.}, \textit{unigram}, \textit{bigram} and \textit{trigram} taggers in this order respectively. First we build affix, which is used as ad \textit{backoff-tagger} for unigram. Unigram is afterwards used as a backoff-tagger for bigram, which is finally used for trigram.
+Although we use the name trigram throughout this paper, we actually refer to sequential tagger, which consists of
+\textit{affix}, \textit{unigram}, \textit{bigram} and \textit{trigram} taggers in this order respectively. The Affix tagger learns prefix and suffix patterns to determine the part of speech tag for a word. First we build affix, which is used as a \textit{backoff-tagger} for unigram. Unigram is afterwards used as a backoff-tagger for bigram, which is finally used for trigram.
+\par
+Definitions and images in this section are summarized from \cite{NLTKBOOK}.
 
 \subsection{Brill tagger} %BANIČ
 
@@ -115,8 +119,8 @@ Features make their contribution to the decision by voting against those labels,
 \label{fig:naive-bayes-bargraph}
 \end{figure}
 
-\section{Related work}
-\label{relatedWork}
+\section{Tools used}
+\label{toolsUsed}
 \subsection{Nltk-trainer} %NIKICC
 The code for building the tagger was taken from \textit{Nltk-trainer}  project \cite{nltk-trainer}, whose author is Jacob Perkins.
 Its an open-source project hosting on Github, with moto to \textit{Train NLTK objects with zero code}.
@@ -164,25 +168,25 @@ If we follow these "rules", implementation is simple. We just need to go through
 File \texttt{transformJOS.py} contains the corpus transformation.
 
 \subsection{Training the tagger} %NIKICC
-As mentioned above, the script \texttt{train\_tagger.py} was used for this purpose. Its mandatory argument is a corpus in .pos format, which generation is described in \ref{Corpus transformation}. Beside this, there are many optional arguments. Here we will describe basics, for further description run script help with:
+The script \texttt{train\_tagger.py} was used for this purpose. Its mandatory argument is a corpus in .pos format. There are many optional arguments. We will describe only the basic ones, for further description run script help with:
 \begin{lstlisting}
 train_tagger.py --help
 \end{lstlisting}
 \par
-One is whether to generate a Sequential Tagger, a Brill Tagger or a Classifier Based Tagger. For Sequential we can then select sequential backoff algorithm. This can be any combination of the following letters:
+To generate a Sequential Tagger we use:
 \begin{itemize}
 \item a: AffixTagger
 \item u: UnigramTagger
 \item b: BigramTagger
 \item t: TrigramTagger
 \end{itemize}
-The default is \textit{aubt}, which was used for our Trigram tagger, but you can set this to the empty string to not train a sequential backoff tagger. The Brill tagger is trained in front of the other tagger, which in our implementation was the Trigram tagger. When building classifier based algorithm, we must select the classifier or the sequence of classifier. Following are supported: NaiveBayes, DecisionTree, Maxent, GIS, IIS, CG, BFGS, Powell, LBFGSB, Nelder-Mead, MEGAM and TADM. We should mention, that the time spent for training classifier based tagger, is much larger than, the time for a sequential or brill.
+We can use any combination of the these letters, to select a sequential backoff algorithm.
+The default is \textit{aubt}, which was used for our Trigram tagger, but you can set this to the empty string not to train a sequential backoff tagger. The Brill tagger is trained before the other taggers, which in our implementation was the Trigram tagger. When building a classifier based algorithm, we must select the classifier or the sequence of classifier. Following are supported: NaiveBayes, DecisionTree, Maxent, GIS, IIS, CG, BFGS, Powell, LBFGSB, Nelder-Mead, MEGAM and TADM. The time to train classifier based tagger, is much larger than, the time for a sequential or Brill.
 \par
-Script also has the possibility to set default tag. We used \textit{-Neznan-}, which is Slovene word for \textit{-unknown-}.
+Script also has the possibility to set a default tag. We used \textit{-Neznan-}, which is Slovene word for \textit{-unknown-}.
 \par
-Last argument, that should be mentioned, is whether to evaluate the tagger or not and the percentage of sentences to be used. The default value is 1, which means that the \textit{same} sentences are first used for training the tagger and then for evaluation. We recommend this argument to be set below 1. If so, the right approach is used.
-Sentences are divided into two groups, one in used for training and second for evaluation. \textit{Fraction} is the percentage of sentences assigned to training group. 
-This was used for evaluating constructed taggers. For results of this evaluation see section \ref{results}).
+We also choose whether to evaluate the tagger or not and the percentage of sentences to be used. The default value is 1, which means that the \textit{same} sentences are first used for training the tagger and then for evaluation. We recommend that this argument is <1. In this case, sentences are divided into two groups. The first in used for training and the second for evaluation. \textit{Fraction} is the percentage of sentences assigned to training group. 
+This was used for evaluating constructed taggers. For results of this evaluation see section \ref{results}.
 
 \subsection{Usage with NLTK} %BANIČ
 
@@ -264,7 +268,7 @@ Printing the result of our example is not optimal. Because we want users to know
 
 \section{Results} %NIKICC
 \label{results}
-For all constructed taggers, we here provide their accuracy. The results were obtained by repeating the process of building the tagger with various evaluation arguments (see script \texttt{evaluateTaggers.sh}). See table \ref{tab:evaluation} and figure \ref{fig:evaluation}.
+For all constructed taggers, we provide their accuracy. The results were obtained by repeating the process of building the tagger with various evaluation arguments (see script \texttt{evaluateTaggers.sh}). See Table \ref{tab:evaluation} and Figure \ref{fig:evaluation}.
 
 \begin{table}[h]
 \begin{center}
@@ -289,7 +293,7 @@ For all constructed taggers, we here provide their accuracy. The results were ob
 \textit{average} & \textbf{0.8317} & \textbf{0.8490} & \textbf{0.8529}
 \end{tabular}
 \end{center}
-\caption{Taggers accuracy for various fractions.}
+\caption{Taggers accuracy for various values of fraction parameter.}
 \label{tab:evaluation}
 \end{table}
 
@@ -301,11 +305,10 @@ For all constructed taggers, we here provide their accuracy. The results were ob
 \label{fig:evaluation}
 \end{figure}
 \par
-To conclude, there are no major differences in tagging accuracy. The Brill and the Naive Bayes are about 2\% better than Trigram.
+As seen, there are no major differences in tagging accuracy. The Brill and the Naive Bayes are about 2\% better than Trigram.
 \par
-However, during this evaluation we discover an other parameter, which should be taken into account.
-Under the assumption that most of the time was actually spent for tagging the sentences (besides just testing for equality and percentage calculation are needed), we noticed that the time for evaluations differ drastically.
-The results of researching time consumption are listed in table \ref{tab:evaluation_speed} and graphically represented on figure \ref{fig:evaluation_speed} (see script \texttt{evaluateTaggersSpeed.py}).
+We noticed that the time for evaluations differ drastically.
+The results are listed in Table \ref{tab:evaluation_speed} and graphically represented on Figure \ref{fig:evaluation_speed} (see script \texttt{evaluateTaggersSpeed.py}).
 
 \begin{table}[h]
 \begin{center}
@@ -343,7 +346,7 @@ The results of researching time consumption are listed in table \ref{tab:evaluat
 \label{fig:evaluation_speed}
 \end{figure}
 
-The difference here is enormous. Brill and Trigram run at almost the same speed, while Naive Bayes runs extremely slower. This is also one of the reason why we prefer using the Brill tagger. 
+The difference is enormous. Brill and Trigram run at almost the same speed, while Naive Bayes runs much slower. This is also one of the reason why we prefer using the Brill tagger. 
 
 \section{Conclusion} %BANIČ
 To conclude our paper, tagging in Slovene language is practical with proper use of Natural Language Toolkit and \textit{nltk-trainer}. Time spent in seconds for tagging different numbers of words, show that Brill and Trigram ran at the same speed, while Naive Bayes ran drastically slower. There are no major differences in tagging accuracy. However Brill and the Naive Bayes are about 2\% better than Trigram.
@@ -352,17 +355,19 @@ Besides these three taggers we built, others can be built without any bigger mod
 \par
 Our whole project is publicly available on github \cite{CODE}. We also contacted the NLTK developers group and will arrange our taggers to become the part of NLTK.
 
-\section*{Acknowledgements}
-We would like to express our gratitude to all the contributors of \textit{JOS} \cite{JOS} project, \textit{nltk-trainer} \cite{nltk-trainer} project and to Marko Robnik-Šikonja, PhD, Associate Professor, who was our mentor at Faculty of Computer and Information Science. Also this project would not be possible without \textit{Natural Language Toolkit} \cite{nltk} and their admirable documentation.
+\section*{Acknowledgements} %NIKICC
+We would like to express our gratitude to all the contributors of \textit{JOS} \cite{JOS} project, \textit{nltk-trainer} \cite{nltk-trainer} project and to Prof. Marko Robnik-Šikonja, who was our supervisor at Faculty of Computer and Information Science. Also this project would not be possible without \textit{Natural Language Toolkit} \cite{nltk} and its admirable documentation.
 
 \begin{thebibliography}{99}
-\bibitem{nltk} \url{http://www.nltk.org/}
-\bibitem{JOS} \url{http://nl.ijs.si/jos/}
-\bibitem{nltk-trainer} \url{https://github.com/japerk/nltk-trainer}
-\bibitem{MULTEXT-East} \url{http://nl.ijs.si/ME/V4/msd/html/msd-sl.html}
-\bibitem{NLTKBOOK} \url{http://www.nltk.org/book}
-\bibitem{xml_tags} \url{http://nl.ijs.si/ssj/schema/tei_ssj_doc.pdf}
-\bibitem{tokenizer} \url{http://docs.huihoo.com/nltk/0.9.5/guides/tokenize.html}
-\bibitem{CODE} \url{https://github.com/nikicc/slovene-nltk-tagger}
+\bibitem{nltk} (2011) NLTK web page. [Online]. Available at: \url{http://www.nltk.org/}
+\bibitem{JOS} (2011) JOS project web page. [Online]. Available at: \url{http://nl.ijs.si/jos/}
+\bibitem{nltk-trainer} (2011) NLTK-trainer project source code. [Online]. Available at: \url{https://github.com/japerk/nltk-trainer}
+\bibitem{MULTEXT-East} (2011) Slovene MULTEXT-East Morphosyntactic Specifications. [Online]. Available at: \url{http://nl.ijs.si/ME/V4/msd/html/msd-sl.html}
+\bibitem{NLTKBOOK} S. Bird, E. Klein, and E. Loper. (2009, June). Natural Language Processing with Python \textit{--- Analyzing Text with the Natural Language Toolkit}. (1st ed.) [Online]. Available at: \url{http://www.nltk.org/book}
+\bibitem{xml_tags} T. Erjavec. (2011, January 29). TEI Schema for SSJ and JOS corpora of Slovene. [Online].
+Available at: \url{http://nl.ijs.si/ssj/schema/tei_ssj_doc.pdf}
+\bibitem{tokenizer} (2011) Tokenizers. [Online]. Available at: \url{http://docs.huihoo.com/nltk/0.9.5/guides/tokenize.html}
+\bibitem{CODE} (2011) Slovene NLTK Tagger (the source code from our project). [Online]. Available at: \url{https://github.com/nikicc/slovene-nltk-tagger}
+\bibitem{wiki} (2011) Wikipedia. [Online]. Available at: \url{http://en.wikipedia.org/wiki/Part-of-speech_tagging}
 \end{thebibliography}
 \end{document}
