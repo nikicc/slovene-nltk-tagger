@@ -41,7 +41,7 @@ We constructed sequential \textit{Trigram tagger}, \textit{Brill tagger} and cla
 \textit{Keywords:} Tagger, corpus, training, tagging accuracy, time consumed
 
 \section{Introduction} %NIKICC
-\textit{Part-of-speech tagging} is harder than just having a list of words and their parts of speech, because some words can represent more than one part of speech at different times and because some parts of speech are complex or unspoken. This is not rare in natural languages (as opposed to many artificial languages), a large percentage of word-forms are ambiguous. Native speakers of a language perform grammatical and semantic analysis innately, and thus trained linguists can identify the grammatical parts of speech to various fine degrees depending on the tagging system \cite{wiki}. Although the problem is not trivial for a computer, the taggs are useful categories for many language processing tasks. 
+\textit{Part-of-speech tagging} is harder than just having a list of words and their parts of speech, because some words can represent more than one part of speech at different times and because some parts of speech are complex or unspoken. This is not rare in natural languages (as opposed to many artificial languages), a large percentage of word-forms are ambiguous. Native speakers of a language perform grammatical and semantic analysis innately, and thus trained linguists can identify the grammatical parts of speech to various fine degrees depending on the tagging system \cite{wiki}. Although the problem is not trivial for a computer, the tags are useful categories for many language processing tasks. 
 \par
 In this chapter, we provide a brief theoretical description of implemented taggers. Next we will describe the tools used in section \ref{toolsUsed}, which were the base of our project. In section \ref{implementation} the process of implementation itself is explained. The example, how to use the tagger is provided, along with some discussion on encoding problems. Finally in section \ref{results} is the evaluation of accuracy and speed.
 \par
@@ -53,7 +53,7 @@ To understand how \textit{trigram} works, we should first understand \textit{uni
 Unigram taggers are based on a simple statistical algorithm: \textit{for each token, assign the tag that is most likely for that particular token}.
 In the case of tagging with Unigram tagger, we only consider the current token, in isolation from any larger context. The best we can do is tag each word with its \textit{a priori} most likely tag.
 \par
-An n-gram tagger is a generalization of a unigram tagger whose context is the current word together with the part-of-speech tags of the $n-1$ preceding tokens, as shown in figure \ref{fig:trigram}. Unigram could also be refereed to as 1-gram.
+An n-gram tagger is a generalization of a unigram tagger whose context is the current word together with the part-of-speech tags of the $n-1$ preceding tokens, as shown in Figure \ref{fig:trigram}. Unigram could also be refereed to as 1-gram.
 
 \begin{figure}[h]
 \begin{center}
@@ -64,7 +64,7 @@ An n-gram tagger is a generalization of a unigram tagger whose context is the cu
 \end{figure}
 
 The tag to be chosen, $t_{n}$, is circled, and the context is shaded in grey.
-In the example of an n-gram tagger shown in figure \ref{fig:trigram}, we have $n=3$; that is, we consider the tags of the two preceding words in addition to the current word.
+In the example of an n-gram tagger shown in Figure \ref{fig:trigram}, we have $n=3$; that is, we consider the tags of the two preceding words in addition to the current word.
 An n-gram tagger picks a priori most likely tag in the given context.
 \par
 Although we use the name trigram throughout this paper, we actually refer to sequential tagger, which consists of
@@ -206,7 +206,11 @@ To generate a Sequential Tagger we use:
 \item t: TrigramTagger
 \end{itemize}
 We can use any combination of the these letters, to select a sequential backoff algorithm.
-The default is \textit{aubt}, which was used for our Trigram tagger, but you can set this to the empty string not to train a sequential backoff tagger. The Brill tagger is trained before the other taggers, which in our implementation was the Trigram tagger. When building a classifier based algorithm, we must select the classifier or the sequence of classifier. Following are supported: NaiveBayes, DecisionTree, Maxent, GIS, IIS, CG, BFGS, Powell, LBFGSB, Nelder-Mead, MEGAM and TADM. The time to train classifier based tagger, is much larger than, the time for a sequential or Brill.
+The default is \textit{aubt}, which was used for our Trigram tagger, but you can set this to the empty string not to train a sequential backoff tagger.
+\par
+The Brill tagger is trained before the other taggers, which in our implementation was the Trigram tagger.
+\par
+When building a classifier based algorithm, we must select the classifier or the sequence of classifiers. Following are supported: NaiveBayes, DecisionTree, Maxent, GIS, IIS, CG, BFGS, Powell, LBFGSB, Nelder-Mead, MEGAM and TADM. The time to train classifier based tagger, is much larger than, the time for a sequential or Brill.
 \par
 Script also has the possibility to set a default tag. We used \textit{-Neznan-}, which is Slovene word for \textit{-unknown-}.
 \par
@@ -376,9 +380,9 @@ The difference is enormous. Brill and Trigram run at almost the same speed, whil
 \section{Conclusion} %BANIČ
 To conclude our paper, tagging in Slovene language is practical with proper use of Natural Language Toolkit and \textit{nltk-trainer}. Time for tagging show that Brill and Trigram ran at the same speed, while Naive Bayes is much slower. There are no major differences in tagging accuracy, but Brill and the Naive Bayes are about 2\% better than Trigram.
 \par
-Besides the taggers we built, others can be built without any large modifications by calling the script \texttt{train\_tagger.py}. We have no proof that the ones we build are better than the ones we did not. It is possible, that some other tagger would be more accurate or faster or even both. So here is definitely some room for improvements.
+Besides the taggers we built, others can be built without any large modifications by calling the script \texttt{train\_tagger.py}. We have no proof that the ones we build are better than the ones we did not. It is possible, that some other tagger would be more accurate or faster or even both. Here is definitely some room for improvements.
 \par
-If we would like to make the taggers more accurate, including other corpuses into the proces of learning would probably help. All we need to do is transform new corpuses into .pos format. The Slovene language has more complicated structure than English, so the corpus needed should be larger.
+If we would like to make the taggers more accurate, including other corpuses into the proces of learning would probably help. All we need to do is transform new corpuses into .pos format. The Slovene language has more complicated structure than English, so the learning corpus should be larger.
 \par
 Our whole project is publicly available on github \cite{CODE}. We contacted the NLTK developers group and will arrange our taggers to become a part of NLTK.
 
