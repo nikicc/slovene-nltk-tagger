@@ -84,6 +84,32 @@ Despite obvious differences between Brill tagger and n-gram tagger there is one 
 
 The idea behind the Brill tagger is: \textit{guess the tag of each word, then go back and fix the mistakes}. Basically, Brill tagger can transform bad tagging into a better one. 
 
+The algorithm starts with the assignment of tags in a maximum likelihood manner; then improving "patches" are determined via the generation of rules that correct tagging errors made in the initialization phase \cite{brill}:
+\begin{itemize}
+\item[•]Initialization:
+\begin{itemize}
+\item[•]Known words (in vocabulary): assigning the most frequent tag associated to a form of the word
+\item[•]Unknown words (out of vocabulary) :
+\begin{itemize}
+\item[•] Proper noun if capitalized and simple noun else
+\item[•] Learning or guessing rules with lexical rules on the same basis as contextual rules
+\end{itemize}
+\end{itemize}
+     
+\item[•] Learning Phase:
+\begin{itemize}
+\item[•] Iteratively compute the error score of each candidate rule (difference between the number of errors before and after applying the rule)
+\item[•] Select the best (higher score) rule.
+\item[•] Add it to the rule set and apply it to the text.
+\item[•] Repeat until no rule has a score above a given threshold (that is, if the chosen threshold is zero (which can lead to over-fitting), until applying new rules leaves the text in the same state, which is then supposed to be the final state of the tagging).
+\end{itemize}
+\end{itemize}
+   
+Lexical rules are used for the initialization, and contextual rules are used to correct the tags.
+\begin{itemize}
+\item[•] Lexical rules: word to tag IF Condition (example: identification of suffixes like "-tion")
+\item[•] Contextual rules: tag1 to tag2 IF Condition (example: "preceding/following tag is X", "preceding/following word is w")       
+\end{itemize}
 \subsection{Naive Bayes classifier}
 Both Brill and Trigram are sequential backoff taggers. Meanwhile, Naive Bayes is a \textit{classifier based tagger}.
 Classification is a process where, for a given output, we have to choose the correct class. Basically, it is  procedure for assigning input data into one of a given categories.
@@ -370,5 +396,6 @@ Available at: \url{http://nl.ijs.si/ssj/schema/tei_ssj_doc.pdf}
 \bibitem{tokenizer} (2011) Tokenizers. [Online]. Available at: \url{http://docs.huihoo.com/nltk/0.9.5/guides/tokenize.html}
 \bibitem{CODE} (2011) Slovene NLTK Tagger (the source code from our project). [Online]. Available at: \url{https://github.com/nikicc/slovene-nltk-tagger}
 \bibitem{wiki} (2011) Wikipedia. [Online]. Available at: \url{http://en.wikipedia.org/wiki/Part-of-speech_tagging}
+\bibitem{brill} (2011) Brill tagger algorithm. [Online]. Available at: \url{http://en.wikipedia.org/wiki/Brill_tagger}
 \end{thebibliography}
 \end{document}
