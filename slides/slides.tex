@@ -1,6 +1,7 @@
 \documentclass{beamer}
 \usepackage[utf8]{inputenc}
 \usetheme{Warsaw}
+
 \title[Slovenski NLTK označevalnik]{Slovenski NLTK označevalnik}
 \author{
 	Niko Colnerič
@@ -16,7 +17,13 @@
 \end{frame}
 
 \begin{frame}{Motivacija}
-This is a short introduction to Beamer class.
+\begin{itemize}
+\item NLTK - Natural Language Toolkit (Python 2.7)
+\item Označevalnik (tagger) besedam pripiše oblikoslovne oznake
+\item Težave z dvoumnostjo
+\item Uporabnost za nadaljno procesiranje teksta
+\item Tega so nas učili v šoli $\ddot\smile$
+\end{itemize}
 \end{frame}
 
 \begin{frame}{Implementirani označevalniki}
@@ -36,11 +43,25 @@ popravi svoje napake tako, da uporabi seznam transformacijskih pravil}
 \end{frame}
 
 \begin{frame}{JOS korpus}
-
-Osnovna komponenta za izgradnjo slovenskega NLTK označevalnik je JOS korpus. Vsebuje zbirko različnih besedil s podrobno ročno preverjenimi jezikoslovnimi oznakami (npr. leme, oblikoskladenjske oznake itd.). Korpus je kompatibilen z MULTEXT-East V4 oblikoskladenjskimi specifikacijami (ang. \textit{morphosyntactic descriptions (MSDs)}), ki definirajo kategorije (besedne vrste) za slovenski jezik, za vsako kategorijo pa tudi njene atribute in njihove vrednosti. Uporabila sva korpus \textit{jos1M}, ki vsebuje 1 milijon besed z delno ročno preverjenimi lemami in oblikoskladenjskimi oznakami. Struktura JOS korpusa je zapisana v XML.
+\begin{itemize}
+\item korpus = velika in strukturirana zbirka besedil
+\item Jezikoslovno Označevanje Slovenskega jezika (IJS)
+\item Zbirko besedil s ročno preverjenimi jezikoslovnimi oznakami
+\item \textit{.XML} datoteka
+\item Uporabila sva \textit{jos1M} - 1 milijon označenih besed
+\item MULTEXT-East V4 specifikacija
+\item MSD (morphosyntactic descriptions) - definirajo kategorije oz. besedne vrste
+\item Namenjena spodbujanju razvoja jezikovnih tehnologij za slovenski jezik
+\end{itemize}
 \end{frame}
 
 \begin{frame}{NLTK trainer}
+\begin{itemize}
+\item Uporabljen za treniranje NLTK objektov - označevanlikov
+\item \textit{Train NLTK objects with zero code}
+\item Dobro dokumentiran
+\item Prosto dostopen na Github-u
+\end{itemize}
 \end{frame}
 
 \begin{frame}{Postopek treniranja označevalnikov}
@@ -54,7 +75,7 @@ Osnovna komponenta za izgradnjo slovenskega NLTK označevalnik je JOS korpus. Vs
 
 \begin{frame}{Primer}
 \begin{center}
-\textit{\textbf{Lep je dan, vse diši že po pomladi}}
+\textit{\textbf{Lep je dan, vse diši že po pomladi!}}
 \end{center}
 \textit{( Lep  |  PPNMEIN ) - pridevnik\\
 	( je  |  GP-STE-N ) - glagol\\
@@ -108,12 +129,18 @@ zapis & 0 \\
 \end{frame}
 
 \begin{frame}{Zaključek, izboljšave}
-
-Ne moreva trditi, da so uporabljeni označevalniki (Trigram, Brill in naivni Bayes) najhitrejši in najbolj natančni. Zato je ena možnost za izboljšavo uporaba drugih označevalnikov. 
-\par
-Če bi hotela izboljšati natančnost naših označevalnik, bi lahko v proces učenja uporabila tudi drugih korpuse. 
-
-\par
-Označevanje v slovenskem jeziku je praktično z uporabo knjižnice \textit{Natural Language Toolkit} in projekta nltk-trainer. Evalvacija je pokazala, da sta tako Brill kot Trigram označila besede hitro, medtem ko je bil naivni Bayes-ov klasifikator veliko počasnejši. Razlike v natančnosti vseh treh označevalnikov praktično ni.
+\begin{itemize}
+\item Brill in Trigram sta hitra, NaiveBayes veliko počasnejši
+\item Najbolj natančen Brill, najmanj Trigram
+\item $\Rightarrow$ Priporočama uporabo Brill označevalnika
+\item Vključitev v NLTK
+\item Dostopno na: \url{https://github.com/nikicc/slovene-nltk-tagger}
+\end{itemize}
+ 
+\begin{itemize}
+\item Z lahkoto bi zgradili tudi druge označevalnike, ki bi lahko bili boljši ali hitrejši
+\item Vključitev drugih korpusov, bi bila koristna
+\end{itemize}
 \end{frame}
+
 \end{document}
