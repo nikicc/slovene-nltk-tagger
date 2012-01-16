@@ -21,18 +21,23 @@ This is a short introduction to Beamer class.
 
 \begin{frame}{Implementirani označevalniki}
 \begin{itemize}
-\item \textbf{Trigram tagger}\\
+\item \textbf{Trigram označevalnik}\\
 \textit{a priori najbolj verjetno oznako v kontekstu dolžine 3}
 \begin{center}
 \includegraphics[width=0.6\textwidth]{../paper/tag-context.png}
 \end{center}
 
-\item \textbf{Brill tagger}
-\item classifier based \textbf{Naive Bayes tagger}
+\item \textbf{Brillov označevalnik}\\
+\textit{ugane oznako vsako besede, nato 
+popravi svoje napake tako, da uporabi seznam transformacijskih pravil}
+\item označevalnik na podlagi \textbf{naivnega Bayes-ovega klasifikatorja}\\
+\textit{predpostavi pogojno neodvisnost atributov pri danem razredu}
 \end{itemize}
 \end{frame}
 
 \begin{frame}{JOS korpus}
+
+Osnovna komponenta za izgradnjo slovenskega NLTK označevalnik je JOS korpus. Vsebuje zbirko različnih besedil s podrobno ročno preverjenimi jezikoslovnimi oznakami (npr. leme, oblikoskladenjske oznake itd.). Korpus je kompatibilen z MULTEXT-East V4 oblikoskladenjskimi specifikacijami (ang. \textit{morphosyntactic descriptions (MSDs)}), ki definirajo kategorije (besedne vrste) za slovenski jezik, za vsako kategorijo pa tudi njene atribute in njihove vrednosti. Uporabila sva korpus \textit{jos1M}, ki vsebuje 1 milijon besed z delno ročno preverjenimi lemami in oblikoskladenjskimi oznakami. Struktura JOS korpusa je zapisana v XML.
 \end{frame}
 
 \begin{frame}{NLTK trainer}
@@ -103,5 +108,12 @@ zapis & 0 \\
 \end{frame}
 
 \begin{frame}{Zaključek, izboljšave}
+
+Ne moreva trditi, da so uporabljeni označevalniki (Trigram, Brill in naivni Bayes) najhitrejši in najbolj natančni. Zato je ena možnost za izboljšavo uporaba drugih označevalnikov. 
+\par
+Če bi hotela izboljšati natančnost naših označevalnik, bi lahko v proces učenja uporabila tudi drugih korpuse. 
+
+\par
+Označevanje v slovenskem jeziku je praktično z uporabo knjižnice \textit{Natural Language Toolkit} in projekta nltk-trainer. Evalvacija je pokazala, da sta tako Brill kot Trigram označila besede hitro, medtem ko je bil naivni Bayes-ov klasifikator veliko počasnejši. Razlike v natančnosti vseh treh označevalnikov praktično ni.
 \end{frame}
 \end{document}
