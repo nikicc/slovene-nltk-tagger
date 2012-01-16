@@ -28,6 +28,8 @@ Slovenian explanation of tags is in **jos1M/josMSD-canon-sl.tbl**
 
 * _**slovene_taggers/**_ : the result of this project. Here are strored Slovene Taggers, which can be used in NLTK.
 
+* _**slides/**_ : presentation slides in Slovene
+
 * _**trainer/**_ : the code forked from [https://github.com/japerk/nltk-trainer](https://github.com/japerk/nltk-trainer "nltk-trainer"). This trainer is used to train the taggers.
 
 * _**evaluateTaggers.sh**_ : commands for accuracy evaluation of the taggers.

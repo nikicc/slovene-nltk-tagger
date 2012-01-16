@@ -7,3 +7,5 @@
 *.out
 *.dvi
 tmp/*
+*.nav
+*.snm
