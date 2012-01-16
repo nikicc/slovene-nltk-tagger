@@ -1,0 +1,109 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+\usetheme{Warsaw}
+\title[Slovenski NLTK označevalnik]{Slovenski NLTK označevalnik}
+\author{
+	Niko Colnerič
+	\and
+	Nejc Banič}
+\institute{ Fakulteta za Računalništvo in Informtiko\\
+			Univerza v Ljubljani}
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}{Motivacija}
+This is a short introduction to Beamer class.
+\end{frame}
+
+\begin{frame}{Implementirani označevalniki}
+\begin{itemize}
+\item \textit{Trigram tagger}
+\item \textit{Brill tagger}
+\item classifier based \textit{Naive Bayes tagger}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{JOS korpus}
+\end{frame}
+
+\begin{frame}{NLTK trainer}
+\end{frame}
+
+\begin{frame}{Postopek treniranja označevalnikov}
+\begin{enumerate}
+\item Transformacija \textit{.XML} korpusa v \textit{.pos}
+\item Treniranje z skripto iz NLTK-trainer
+\item Ocenjevanje točnosti
+\item Ocenjevanje hitrosti
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Primer}
+\begin{center}
+\textit{\textbf{Lep je dan, vse diši že po pomladi}}
+\end{center}
+\textit{( Lep  |  PPNMEIN ) - pridevnik\\
+	( je  |  GP-STE-N ) - glagol\\
+	( dan  |  SOMEI ) - samostalnik\\
+	( ,  |  , ) - ni razlage\\
+	( vse  |  ZC-SEI ) - zaimek\\
+	( diši  |  GGNSTE ) - glagol\\
+	( že  |  L ) - členek\\
+	( po  |  DM ) - predlog\\
+	( pomladi  |  SOZEM ) - samostalnik\\
+	( !  |  ! ) - ni razlage}\\
+\end{frame}
+
+\begin{frame}{Celoten MSD za \textit{Lep} }
+\begin{table}[h]
+\begin{center}
+\begin{tabular}{c|c}
+\multicolumn{2}{c}{pridevnik}\\\hline\hline
+vrsta & splošni \\
+spol & moški \\
+število & ednina \\
+sklon & imenovalnik \\
+živost & 0 \\
+vid & 0 \\
+oblika & 0 \\
+oseba & 0 \\
+nikalnost & 0 \\
+stopnja & nedoločeno \\
+določnost & ne \\
+število\_svojine & 0 \\
+spol\_svojine & 0 \\
+naslonskost & 0 \\
+zapis & 0 \\
+\end{tabular}
+\end{center}
+\label{tab:MSDLep}
+\end{table}
+\end{frame}
+
+\begin{frame}{Rezultati natančnost}
+\begin{figure}[h]
+\begin{center}
+\includegraphics[height=0.85\textheight]{../evaluation/graph.pdf} 
+\end{center}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Rezultati hitrost}
+\begin{figure}[h]
+\begin{center}
+\includegraphics[height=0.85\textheight]{../evaluation/graph_speed.pdf} 
+\end{center}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Zaključek in izboljšave}
+\end{frame}
+
+\begin{frame}{}
+\end{frame}
+
+\end{document}
